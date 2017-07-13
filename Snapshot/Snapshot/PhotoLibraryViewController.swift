@@ -9,7 +9,7 @@
 import UIKit
 import AudioToolbox
 
-class PhotoLibraryViewController: UICollectionViewController, UIGestureRecognizerDelegate {
+class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var backButton: UIBarButtonItem!
     
@@ -83,6 +83,11 @@ class PhotoLibraryViewController: UICollectionViewController, UIGestureRecognize
     
     internal override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return DataManager.savedImages.count
+    }
+    
+    internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = view.frame.width
+        return CGSize(width: width * 0.33, height: width * 0.33)
     }
     
     internal override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
