@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		163186F71F15C2C800880102 /* PhotoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163186F61F15C2C800880102 /* PhotoLibraryViewController.swift */; };
 		16A7CC3A1F17064300D2CC55 /* SavedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A7CC391F17064300D2CC55 /* SavedImage.swift */; };
-		16D1867A1F16D1D40066A77E /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16D186791F16D1D40066A77E /* Photos.framework */; };
 		16D265BC1F0C18E200D37E8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D265BB1F0C18E200D37E8E /* AppDelegate.swift */; };
 		16D265C11F0C18E200D37E8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16D265BF1F0C18E200D37E8E /* Main.storyboard */; };
 		16D265C31F0C18E200D37E8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16D265C21F0C18E200D37E8E /* Assets.xcassets */; };
@@ -24,7 +23,6 @@
 /* Begin PBXFileReference section */
 		163186F61F15C2C800880102 /* PhotoLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryViewController.swift; sourceTree = "<group>"; };
 		16A7CC391F17064300D2CC55 /* SavedImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedImage.swift; sourceTree = "<group>"; };
-		16D186791F16D1D40066A77E /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		16D265B81F0C18E200D37E8E /* Snapshot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snapshot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16D265BB1F0C18E200D37E8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		16D265C01F0C18E200D37E8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -43,7 +41,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16D1867A1F16D1D40066A77E /* Photos.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,20 +55,11 @@
 			name = DataTypes;
 			sourceTree = "<group>";
 		};
-		16D186761F16D1530066A77E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				16D186791F16D1D40066A77E /* Photos.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		16D265AF1F0C18E200D37E8E = {
 			isa = PBXGroup;
 			children = (
 				16D265BA1F0C18E200D37E8E /* Snapshot */,
 				16D265B91F0C18E200D37E8E /* Products */,
-				16D186761F16D1530066A77E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

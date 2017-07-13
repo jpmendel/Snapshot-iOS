@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Photos
 
 class SaveDateViewController: UIViewController {
 
@@ -40,29 +39,9 @@ class SaveDateViewController: UIViewController {
     
     internal func confirmButtonPress(_ sender: UIButton) {
         if let image = DataManager.capturedImage {
-            UIImageWriteToSavedPhotosAlbum(image, self, #selector(completeImageSave(_:error:contextInfo:)), nil)
-        }
-    }
-    
-    internal func storeSavedImage() {
-        let photoOptions = PHFetchOptions()
-        photoOptions.fetchLimit = 1
-        photoOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        let imageResult = PHAsset.fetchAssets(with: .image, options: photoOptions)
-        if let image = imageResult.firstObject {
-            let savedImage = SavedImage(id: image.localIdentifier, expireDate: datePicker.date)
+            let savedImage = SavedImage(image, expireDate: datePicker.date)
             DataManager.savedImages += [savedImage]
             DataManager.saveData()
-        } else {
-            print("Error saving image.")
-        }
-    }
-    
-    internal func completeImageSave(_ image: UIImage, error: Error?, contextInfo: UnsafeRawPointer) {
-        if error == nil {
-            storeSavedImage()
-        } else {
-            print("Error saving image.")
         }
         if let viewControllers = navigationController?.viewControllers {
             for viewController in viewControllers {

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Photos
 import AudioToolbox
 
 class PhotoLibraryViewController: UICollectionViewController, UIGestureRecognizerDelegate {
@@ -16,24 +15,11 @@ class PhotoLibraryViewController: UICollectionViewController, UIGestureRecognize
     
     @IBOutlet var photoCollection: UICollectionView!
     
-    private var photoManager: PHCachingImageManager = PHCachingImageManager()
-    
-    private var photoResults: PHFetchResult<PHAsset>!
+    private var alertShowing: Bool = false
     
     internal override func viewDidLoad() {
         super.viewDidLoad()
-        setupPhotoLibrary()
         setupActions()
-    }
-    
-    private func setupPhotoLibrary() {
-        let photoOptions = PHFetchOptions()
-        photoOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-        var localIdentifiers = [String]()
-        for image in DataManager.savedImages {
-            localIdentifiers += [image.id]
-        }
-        photoResults = PHAsset.fetchAssets(withLocalIdentifiers: localIdentifiers, options: photoOptions)
     }
     
     private func setupActions() {
@@ -46,6 +32,9 @@ class PhotoLibraryViewController: UICollectionViewController, UIGestureRecognize
     }
     
     internal func photoTapGesture(_ sender: UITapGestureRecognizer) {
+        if alertShowing {
+            return
+        }
         if let imageView = sender.view {
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
             let savedImage = DataManager.savedImages[imageView.tag]
@@ -55,56 +44,46 @@ class PhotoLibraryViewController: UICollectionViewController, UIGestureRecognize
             let alert = UIAlertController(title: "Snapshot", message: "Expires: \(expireDate)", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default) {
                 alertAction in
+                self.alertShowing = false
             }
             alert.addAction(okAction)
             present(alert, animated: true, completion: nil)
+            alertShowing = true
         }
     }
     
     internal func photoLongPressGesture(_ sender: UILongPressGestureRecognizer) {
+        if alertShowing {
+            return
+        }
         if let imageView = sender.view {
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
             let alert = UIAlertController(title: "Snapshot", message: "Delete now?", preferredStyle: .alert)
             let yesAction = UIAlertAction(title: "Yes", style: .default) {
                 action in
-                let savedImage = DataManager.savedImages.remove(at: imageView.tag)
-                self.setupPhotoLibrary()
+                DataManager.savedImages.remove(at: imageView.tag)
                 self.photoCollection.reloadData()
-                let photoOptions = PHFetchOptions()
-                photoOptions.fetchLimit = 1
-                let assetToDelete = PHAsset.fetchAssets(withLocalIdentifiers: [savedImage.id], options: photoOptions)
-                PHPhotoLibrary.shared().performChanges({PHAssetChangeRequest.deleteAssets(assetToDelete)}) {
-                    success, error in
-                    if error != nil {
-                        print("Error deleting image.")
-                    }
-                }
+                self.alertShowing = false
             }
             let noAction = UIAlertAction(title: "No", style: .cancel) {
                 action in
+                self.alertShowing = false
             }
             alert.addAction(yesAction)
             alert.addAction(noAction)
             present(alert, animated: true, completion: nil)
+            alertShowing = true
         }
     }
     
     internal override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if photoResults != nil {
-            return photoResults.count
-        } else {
-            return 0
-        }
+        return DataManager.savedImages.count
     }
     
     internal override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath)
         let imageView = cell.contentView.subviews[0] as! UIImageView
-        imageView.image = nil
-        photoManager.requestImage(for: photoResults[indexPath.item], targetSize: imageView.frame.size, contentMode: .aspectFill, options: nil) {
-            image, info in
-            imageView.image = image
-        }
+        imageView.image = DataManager.savedImages[indexPath.item].image
         setupGestureRecognizers(for: imageView)
         imageView.isUserInteractionEnabled = true
         imageView.tag = indexPath.item

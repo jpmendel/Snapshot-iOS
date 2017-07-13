@@ -10,22 +10,22 @@ import UIKit
 
 class SavedImage: NSObject, NSCoding {
     
-    internal var id: String
+    internal var image: UIImage
     
     internal var expireDate: Date
     
-    internal init(id: String, expireDate: Date) {
-        self.id = id
+    internal init(_ image: UIImage, expireDate: Date) {
+        self.image = image
         self.expireDate = expireDate
     }
     
     internal required init?(coder decoder: NSCoder) {
-        id = decoder.decodeObject(forKey: "id") as! String
+        image = decoder.decodeObject(forKey: "image") as! UIImage
         expireDate = decoder.decodeObject(forKey: "expireDate") as! Date
     }
     
     internal func encode(with coder: NSCoder) {
-        coder.encode(id, forKey: "id")
+        coder.encode(image, forKey: "image")
         coder.encode(expireDate, forKey: "expireDate")
     }
 

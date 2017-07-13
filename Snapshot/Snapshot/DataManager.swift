@@ -27,5 +27,13 @@ class DataManager: NSObject {
             savedImages = NSKeyedUnarchiver.unarchiveObject(with: decodedData) as! [SavedImage]
         }
     }
+    
+    internal static func checkExpiredImages() {
+        for i in 0..<savedImages.count {
+            if savedImages[i].expireDate < Date() {
+                savedImages.remove(at: i)
+            }
+        }
+    }
 
 }

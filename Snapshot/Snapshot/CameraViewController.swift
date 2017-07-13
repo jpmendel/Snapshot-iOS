@@ -17,6 +17,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     internal override func viewDidLoad() {
         super.viewDidLoad()
         DataManager.loadData()
+        DataManager.checkExpiredImages()
         setupActions()
         formatButtons()
     }
