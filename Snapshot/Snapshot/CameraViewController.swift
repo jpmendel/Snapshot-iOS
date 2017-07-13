@@ -16,10 +16,13 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     internal override func viewDidLoad() {
         super.viewDidLoad()
-        DataManager.loadData()
-        DataManager.checkExpiredImages()
         setupActions()
         formatButtons()
+    }
+    
+    internal override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        DataManager.checkExpiredImages()
     }
     
     private func setupActions() {
@@ -36,7 +39,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     internal func photoLibraryButtonPress(_ sender: UIBarButtonItem) {
         if let photoLibraryViewController =
             storyboard?.instantiateViewController(withIdentifier: "photoLibraryViewController") {
-        navigationController?.pushViewController(photoLibraryViewController, animated: true)
+            navigationController?.pushViewController(photoLibraryViewController, animated: true)
         }
     }
     
@@ -48,10 +51,9 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
             imagePicker.sourceType = .camera
             present(imagePicker, animated: true, completion: nil)
         } else {
-            let alert = UIAlertController(title: "Snapshot", message: "This device has no camera.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Snapshot", message: "This device has no supported camera.", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default) {
-                alertAction in
-                
+                action in
             }
             alert.addAction(okAction)
             present(alert, animated: true, completion: nil)

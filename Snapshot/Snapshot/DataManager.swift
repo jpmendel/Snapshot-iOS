@@ -29,7 +29,7 @@ class DataManager: NSObject {
     }
     
     internal static func checkExpiredImages() {
-        for i in 0..<savedImages.count {
+        for i in stride(from: savedImages.count - 1, through: 0, by: -1) {
             if savedImages[i].expireDate < Date() {
                 savedImages.remove(at: i)
             }

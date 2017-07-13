@@ -22,6 +22,11 @@ class PhotoLibraryViewController: UICollectionViewController, UIGestureRecognize
         setupActions()
     }
     
+    internal override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        DataManager.checkExpiredImages()
+    }
+    
     private func setupActions() {
         backButton.target = self
         backButton.action = #selector(backButtonPress(_:))
@@ -84,10 +89,16 @@ class PhotoLibraryViewController: UICollectionViewController, UIGestureRecognize
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath)
         let imageView = cell.contentView.subviews[0] as! UIImageView
         imageView.image = DataManager.savedImages[indexPath.item].image
+        formatPhoto(imageView)
         setupGestureRecognizers(for: imageView)
         imageView.isUserInteractionEnabled = true
         imageView.tag = indexPath.item
         return cell
+    }
+    
+    private func formatPhoto(_ photo: UIImageView) {
+        photo.layer.cornerRadius = 10
+        photo.clipsToBounds = true
     }
     
     private func setupGestureRecognizers(for photo: UIImageView) {
