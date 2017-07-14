@@ -15,6 +15,8 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
     
     @IBOutlet var photoCollection: UICollectionView!
     
+    private var timer: Timer = Timer()
+    
     private var alertShowing: Bool = false
     
     internal override func viewDidLoad() {
@@ -25,6 +27,8 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
     internal override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         DataManager.checkExpiredImages()
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(checkForExpiredPhotos),
+                                     userInfo: nil, repeats: true)
     }
     
     private func setupActions() {
@@ -33,6 +37,7 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
     }
     
     internal func backButtonPress(_ sender: UIBarButtonItem) {
+        timer.invalidate()
         navigationController?.popViewController(animated: true)
     }
     
@@ -79,6 +84,11 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
             present(alert, animated: true, completion: nil)
             alertShowing = true
         }
+    }
+    
+    internal func checkForExpiredPhotos() {
+        DataManager.checkExpiredImages()
+        photoCollection.reloadData()
     }
     
     internal override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

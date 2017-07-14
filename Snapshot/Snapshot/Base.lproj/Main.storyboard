@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Take Photo-->
+        <!--Snapshot-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="takePhotoViewController" id="BYZ-38-t0r" customClass="CameraViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
@@ -33,7 +33,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Take Photo" id="Uc3-Dp-kpi">
+                    <navigationItem key="navigationItem" title="Snapshot" id="Uc3-Dp-kpi">
                         <barButtonItem key="leftBarButtonItem" systemItem="organize" id="wXF-CR-xfY">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
@@ -202,7 +202,7 @@
         <scene sceneID="nLb-fb-oHO">
             <objects>
                 <collectionViewController storyboardIdentifier="photoLibraryViewController" id="2wR-TI-XMK" customClass="PhotoLibraryViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="uBo-8p-WHT">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="uBo-8p-WHT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
