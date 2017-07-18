@@ -37,10 +37,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     internal func photoLibraryButtonPress(_ sender: UIBarButtonItem) {
-        if let photoLibraryViewController =
-            storyboard?.instantiateViewController(withIdentifier: "photoLibraryViewController") {
-            navigationController?.pushViewController(photoLibraryViewController, animated: true)
-        }
+        ScreenManager.show("photoLibraryViewController", from: self, modal: false)
     }
     
     internal func takePhotoButtonPress(_ sender: UIButton) {
@@ -61,11 +58,8 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let saveOptionsViewController =
-            storyboard?.instantiateViewController(withIdentifier: "saveOptionsViewController") {
-            DataManager.capturedImage = info[UIImagePickerControllerEditedImage] as? UIImage
-            navigationController?.pushViewController(saveOptionsViewController, animated: true)
-        }
+        DataManager.capturedImage = info[UIImagePickerControllerEditedImage] as? UIImage
+        ScreenManager.show("saveOptionsViewController", from: self, modal: false)
         picker.dismiss(animated: true, completion: nil)
     }
     

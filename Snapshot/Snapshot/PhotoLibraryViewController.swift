@@ -71,9 +71,14 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
             let alert = UIAlertController(title: "Snapshot", message: "Delete now?", preferredStyle: .alert)
             let yesAction = UIAlertAction(title: "Yes", style: .default) {
                 action in
-                DataManager.savedImages.remove(at: imageView.tag)
-                self.photoCollection.reloadData()
-                self.alertShowing = false
+                UIView.animate(withDuration: 0.25, animations: {
+                    imageView.alpha = 0.0
+                }, completion: {
+                    complete in
+                    DataManager.savedImages.remove(at: imageView.tag)
+                    self.photoCollection.reloadData()
+                    self.alertShowing = false
+                })
             }
             let noAction = UIAlertAction(title: "No", style: .cancel) {
                 action in
@@ -107,6 +112,7 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
         formatPhoto(imageView)
         setupGestureRecognizers(for: imageView)
         imageView.isUserInteractionEnabled = true
+        imageView.alpha = 1.0
         imageView.tag = indexPath.item
         return cell
     }

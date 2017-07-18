@@ -48,7 +48,7 @@ class SaveTimeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     internal func cancelButtonPress(_ sender: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
+        ScreenManager.back(from: self)
     }
     
     internal func confirmButtonPress(_ sender: UIButton) {
@@ -58,13 +58,7 @@ class SaveTimeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             DataManager.savedImages += [savedImage]
             DataManager.saveData()
         }
-        if let viewControllers = navigationController?.viewControllers {
-            for viewController in viewControllers {
-                if viewController is CameraViewController {
-                    navigationController?.popToViewController(viewController, animated: true)
-                }
-            }
-        }
+        ScreenManager.backTo(CameraViewController.self, from: self)
     }
     
     internal func numberOfComponents(in pickerView: UIPickerView) -> Int {

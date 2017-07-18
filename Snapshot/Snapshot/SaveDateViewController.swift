@@ -34,7 +34,7 @@ class SaveDateViewController: UIViewController {
     }
 
     internal func cancelButtonPress(_ sender: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
+        ScreenManager.back(from: self)
     }
     
     internal func confirmButtonPress(_ sender: UIButton) {
@@ -43,13 +43,7 @@ class SaveDateViewController: UIViewController {
             DataManager.savedImages += [savedImage]
             DataManager.saveData()
         }
-        if let viewControllers = navigationController?.viewControllers {
-            for viewController in viewControllers {
-                if viewController is CameraViewController {
-                    navigationController?.popToViewController(viewController, animated: true)
-                }
-            }
-        }
+        ScreenManager.backTo(CameraViewController.self, from: self)
     }
     
 }

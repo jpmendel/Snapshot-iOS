@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		163186F71F15C2C800880102 /* PhotoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163186F61F15C2C800880102 /* PhotoLibraryViewController.swift */; };
 		16A7CC3A1F17064300D2CC55 /* SavedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A7CC391F17064300D2CC55 /* SavedImage.swift */; };
+		16B1D1DB1F1D9FD30056C401 /* ScreenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B1D1DA1F1D9FD30056C401 /* ScreenManager.swift */; };
 		16D265BC1F0C18E200D37E8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D265BB1F0C18E200D37E8E /* AppDelegate.swift */; };
 		16D265C11F0C18E200D37E8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16D265BF1F0C18E200D37E8E /* Main.storyboard */; };
 		16D265C31F0C18E200D37E8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16D265C21F0C18E200D37E8E /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		163186F61F15C2C800880102 /* PhotoLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryViewController.swift; sourceTree = "<group>"; };
 		16A7CC391F17064300D2CC55 /* SavedImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedImage.swift; sourceTree = "<group>"; };
+		16B1D1DA1F1D9FD30056C401 /* ScreenManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenManager.swift; sourceTree = "<group>"; };
 		16D265B81F0C18E200D37E8E /* Snapshot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snapshot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16D265BB1F0C18E200D37E8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		16D265C01F0C18E200D37E8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				16EAD2011F147B8A001A5AC1 /* DataManager.swift */,
+				16B1D1DA1F1D9FD30056C401 /* ScreenManager.swift */,
 			);
 			name = DataManagement;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				16D265BC1F0C18E200D37E8E /* AppDelegate.swift in Sources */,
 				16EAD1F81F145C71001A5AC1 /* CameraViewController.swift in Sources */,
 				163186F71F15C2C800880102 /* PhotoLibraryViewController.swift in Sources */,
+				16B1D1DB1F1D9FD30056C401 /* ScreenManager.swift in Sources */,
 				16EAD1FC1F1467BF001A5AC1 /* SaveOptionsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
