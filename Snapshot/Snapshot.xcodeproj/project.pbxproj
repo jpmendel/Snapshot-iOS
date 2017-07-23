@@ -10,6 +10,7 @@
 		163186F71F15C2C800880102 /* PhotoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163186F61F15C2C800880102 /* PhotoLibraryViewController.swift */; };
 		16A7CC3A1F17064300D2CC55 /* SavedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A7CC391F17064300D2CC55 /* SavedImage.swift */; };
 		16C7763E1F251A5C00616993 /* UIViewController+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C7763D1F251A5C00616993 /* UIViewController+Util.swift */; };
+		16C776401F252ACF00616993 /* ModalImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C7763F1F252ACF00616993 /* ModalImageViewController.swift */; };
 		16D265BC1F0C18E200D37E8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D265BB1F0C18E200D37E8E /* AppDelegate.swift */; };
 		16D265C11F0C18E200D37E8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16D265BF1F0C18E200D37E8E /* Main.storyboard */; };
 		16D265C31F0C18E200D37E8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16D265C21F0C18E200D37E8E /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 		163186F61F15C2C800880102 /* PhotoLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryViewController.swift; sourceTree = "<group>"; };
 		16A7CC391F17064300D2CC55 /* SavedImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedImage.swift; sourceTree = "<group>"; };
 		16C7763D1F251A5C00616993 /* UIViewController+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Util.swift"; sourceTree = "<group>"; };
+		16C7763F1F252ACF00616993 /* ModalImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalImageViewController.swift; sourceTree = "<group>"; };
 		16D265B81F0C18E200D37E8E /* Snapshot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snapshot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16D265BB1F0C18E200D37E8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		16D265C01F0C18E200D37E8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				16EAD1FD1F1467CC001A5AC1 /* SaveTimeViewController.swift */,
 				16EAD1FF1F1467D8001A5AC1 /* SaveDateViewController.swift */,
 				163186F61F15C2C800880102 /* PhotoLibraryViewController.swift */,
+				16C7763F1F252ACF00616993 /* ModalImageViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 				16D265BC1F0C18E200D37E8E /* AppDelegate.swift in Sources */,
 				16EAD1F81F145C71001A5AC1 /* CameraViewController.swift in Sources */,
 				163186F71F15C2C800880102 /* PhotoLibraryViewController.swift in Sources */,
+				16C776401F252ACF00616993 /* ModalImageViewController.swift in Sources */,
 				16EAD1FC1F1467BF001A5AC1 /* SaveOptionsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

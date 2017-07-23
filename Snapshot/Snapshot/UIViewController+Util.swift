@@ -10,43 +10,39 @@ import UIKit
 
 extension UIViewController {
     
-    internal func show(screen: String, modal: Bool = false) {
+    internal func show(screen: String, animated: Bool = true, modal: Bool = false, setup: ((_ viewController: UIViewController) -> Void)? = nil) {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: screen) {
+            if let setupFunction = setup {
+                setupFunction(viewController)
+            }
             if modal {
-                navigationController?.present(viewController, animated: true, completion: nil)
+                navigationController?.present(viewController, animated: animated, completion: nil)
             } else {
-                navigationController?.pushViewController(viewController, animated: true)
+                navigationController?.pushViewController(viewController, animated: animated)
             }
         }
     }
     
-    internal func show<T>(screen: String, modal: Bool = false, setup: (_ viewController: T) -> Void) {
-        if let viewController = storyboard?.instantiateViewController(withIdentifier: screen) {
-            setup(viewController as! T)
-            if modal {
-                navigationController?.present(viewController, animated: true, completion: nil)
-            } else {
-                navigationController?.pushViewController(viewController, animated: true)
-            }
-        }
+    internal func back(animated: Bool = true) {
+        navigationController?.popViewController(animated: animated)
     }
     
-    internal func back() {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    internal func back<T>(to screen: T.Type) {
+    internal func back<T>(to screen: T.Type, animated: Bool = true) {
         if let viewControllers = navigationController?.viewControllers {
             for viewController in viewControllers {
                 if viewController is T {
-                    navigationController?.popToViewController(viewController, animated: true)
+                    navigationController?.popToViewController(viewController, animated: animated)
                 }
             }
         }
     }
     
-    internal func close() {
-        navigationController?.dismiss(animated: true, completion: nil)
+    internal func close(from navController: UINavigationController? = nil, animated: Bool = true) {
+        if let nav = navController {
+            nav.dismiss(animated: animated, completion: nil)
+        } else {
+            navigationController?.dismiss(animated: animated, completion: nil)
+        }
     }
     
 }

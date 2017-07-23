@@ -42,23 +42,15 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
     }
     
     internal func photoTapGesture(_ sender: UITapGestureRecognizer) {
-        if alertShowing {
-            return
-        }
-        if let imageView = sender.view {
-            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-            let savedImage = DataManager.savedImages[imageView.tag]
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yy - h:mm a"
-            let expireDate = dateFormatter.string(from: savedImage.expireDate)
-            let alert = UIAlertController(title: "Snapshot", message: "Expires: \(expireDate)", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default) {
-                alertAction in
-                self.alertShowing = false
+        show(screen: "modalImageViewController", modal: true) {
+            viewController in
+            let modalImageViewController = viewController as! ModalImageViewController
+            modalImageViewController.modalPresentationStyle = .overFullScreen
+            modalImageViewController.modalTransitionStyle = .crossDissolve
+            if let imageView = sender.view as? UIImageView {
+                modalImageViewController.presenter = self.navigationController
+                modalImageViewController.selectedImage = DataManager.savedImages[imageView.tag]
             }
-            alert.addAction(okAction)
-            present(alert, animated: true, completion: nil)
-            alertShowing = true
         }
     }
     
