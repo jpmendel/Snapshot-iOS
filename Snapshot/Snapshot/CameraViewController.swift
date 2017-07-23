@@ -10,6 +10,10 @@ import UIKit
 
 class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    @IBOutlet weak var photoLibraryBarButton: UIBarButtonItem!
+    
+    @IBOutlet weak var takePhotoBarButton: UIBarButtonItem!
+    
     @IBOutlet weak var photoLibraryButton: UIButton!
     
     @IBOutlet weak var takePhotoButton: UIButton!
@@ -26,6 +30,10 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     private func setupActions() {
+        takePhotoBarButton.target = self
+        takePhotoBarButton.action = #selector(takePhotoButtonPress(_:))
+        photoLibraryBarButton.target = self
+        photoLibraryBarButton.action = #selector(photoLibraryButtonPress(_:))
         takePhotoButton.addTarget(self, action: #selector(takePhotoButtonPress(_:)), for: .touchDown)
         photoLibraryButton.addTarget(self, action: #selector(photoLibraryButtonPress(_:)), for: .touchDown)
     }
