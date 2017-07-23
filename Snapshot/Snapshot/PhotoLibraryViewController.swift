@@ -38,7 +38,7 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
     
     internal func backButtonPress(_ sender: UIBarButtonItem) {
         timer.invalidate()
-        navigationController?.popViewController(animated: true)
+        back()
     }
     
     internal func photoTapGesture(_ sender: UITapGestureRecognizer) {

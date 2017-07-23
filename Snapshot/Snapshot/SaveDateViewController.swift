@@ -34,7 +34,7 @@ class SaveDateViewController: UIViewController {
     }
 
     internal func cancelButtonPress(_ sender: UIBarButtonItem) {
-        ScreenManager.back(from: self)
+        back()
     }
     
     internal func confirmButtonPress(_ sender: UIButton) {
@@ -43,7 +43,7 @@ class SaveDateViewController: UIViewController {
             DataManager.savedImages += [savedImage]
             DataManager.saveData()
         }
-        ScreenManager.backTo(CameraViewController.self, from: self)
+        back(to: CameraViewController.self)
     }
     
 }

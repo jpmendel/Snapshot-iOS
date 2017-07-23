@@ -37,15 +37,15 @@ class SaveOptionsViewController: UIViewController {
     }
     
     internal func cancelButtonPress(_ sender: UIBarButtonItem) {
-        ScreenManager.back(from: self)
+        back()
     }
     
     internal func saveTimeButtonPress(_ sender: UIButton) {
-        ScreenManager.show("saveTimeViewController", from: self, modal: false)
+        show(screen: "saveTimeViewController")
     }
     
     internal func saveDateButtonPress(_ sender: UIButton) {
-        ScreenManager.show("saveDateViewController", from: self, modal: false)
+        show(screen: "saveDateViewController")
     }
 
 }

@@ -10,7 +10,7 @@ import UIKit
 
 class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    @IBOutlet weak var photoLibraryButton: UIBarButtonItem!
+    @IBOutlet weak var photoLibraryButton: UIButton!
     
     @IBOutlet weak var takePhotoButton: UIButton!
     
@@ -26,18 +26,19 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     private func setupActions() {
-        photoLibraryButton.target = self
-        photoLibraryButton.action = #selector(photoLibraryButtonPress(_:))
         takePhotoButton.addTarget(self, action: #selector(takePhotoButtonPress(_:)), for: .touchDown)
+        photoLibraryButton.addTarget(self, action: #selector(photoLibraryButtonPress(_:)), for: .touchDown)
     }
     
     private func formatButtons() {
         takePhotoButton.layer.cornerRadius = 10
         takePhotoButton.clipsToBounds = true
+        photoLibraryButton.layer.cornerRadius = 10
+        photoLibraryButton.clipsToBounds = true
     }
     
     internal func photoLibraryButtonPress(_ sender: UIBarButtonItem) {
-        ScreenManager.show("photoLibraryViewController", from: self, modal: false)
+        show(screen: "photoLibraryViewController")
     }
     
     internal func takePhotoButtonPress(_ sender: UIButton) {
@@ -59,7 +60,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         DataManager.capturedImage = info[UIImagePickerControllerEditedImage] as? UIImage
-        ScreenManager.show("saveOptionsViewController", from: self, modal: false)
+        show(screen: "saveOptionsViewController")
         picker.dismiss(animated: true, completion: nil)
     }
     
