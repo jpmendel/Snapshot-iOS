@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVKit
 
 class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -53,8 +54,9 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
-            imagePicker.allowsEditing = true
+            imagePicker.allowsEditing = false
             imagePicker.sourceType = .camera
+            imagePicker.cameraFlashMode = .off
             present(imagePicker, animated: true, completion: nil)
         } else {
             let alert = UIAlertController(title: "Snapshot", message: "This device has no supported camera.", preferredStyle: .alert)
@@ -67,7 +69,8 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        DataManager.capturedImage = info[UIImagePickerControllerEditedImage] as? UIImage
+        DataManager.capturedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        print("WIDTH: \(DataManager.capturedImage?.size.width) HEIGHT: \(DataManager.capturedImage?.size.height)")
         show(screen: "saveOptionsViewController")
         picker.dismiss(animated: true, completion: nil)
     }

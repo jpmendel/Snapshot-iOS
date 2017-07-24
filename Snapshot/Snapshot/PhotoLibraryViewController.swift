@@ -112,6 +112,26 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
     private func formatPhoto(_ photo: UIImageView) {
         photo.layer.cornerRadius = 10
         photo.clipsToBounds = true
+        if let image = photo.image {
+            let imageWidth = image.size.width
+            let imageHeight = image.size.height
+            var x: CGFloat = 0.0
+            var y: CGFloat = 0.0
+            var width: CGFloat = 0.0
+            var height: CGFloat = 0.0
+            if imageWidth > imageHeight {
+                x = (imageWidth - imageHeight) / 2.0
+                width = imageHeight
+                height = imageHeight
+            } else if imageWidth < imageHeight {
+                y = (imageHeight - imageWidth) / 2.0
+                width = imageWidth
+                height = imageWidth
+            }
+            let imageRect = CGRect(x: x, y: y, width: width, height: height)
+            let imageRef = image.cgImage!.cropping(to: imageRect)
+            photo.image = UIImage(cgImage: imageRef!, scale: image.scale, orientation: image.imageOrientation)
+        }
     }
     
     private func setupGestureRecognizers(for photo: UIImageView) {
