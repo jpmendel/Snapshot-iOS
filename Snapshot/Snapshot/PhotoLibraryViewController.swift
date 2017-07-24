@@ -113,20 +113,20 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
         photo.layer.cornerRadius = 10
         photo.clipsToBounds = true
         if let image = photo.image {
-            let imageWidth = image.size.height
-            let imageHeight = image.size.width
+            let imageWidth = image.size.width
+            let imageHeight = image.size.height
             var x: CGFloat = 0.0
             var y: CGFloat = 0.0
             var width: CGFloat = 0.0
             var height: CGFloat = 0.0
-            if imageWidth > imageHeight {
-                x = (imageWidth - imageHeight) / 2.0
-                width = imageHeight
-                height = imageHeight
-            } else if imageWidth < imageHeight {
-                y = (imageHeight - imageWidth) / 2.0
+            if imageWidth < imageHeight {
+                x = (imageHeight - imageWidth) / 2.0
                 width = imageWidth
                 height = imageWidth
+            } else if imageWidth > imageHeight {
+                y = (imageWidth - imageHeight) / 2.0
+                width = imageHeight
+                height = imageHeight
             }
             let imageRect = CGRect(x: x, y: y, width: width, height: height)
             let imageRef = image.cgImage!.cropping(to: imageRect)
