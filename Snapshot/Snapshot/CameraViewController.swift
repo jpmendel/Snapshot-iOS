@@ -70,7 +70,6 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         DataManager.capturedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
-        print("WIDTH: \(DataManager.capturedImage?.size.width) HEIGHT: \(DataManager.capturedImage?.size.height)")
         show(screen: "saveOptionsViewController")
         picker.dismiss(animated: true, completion: nil)
     }
