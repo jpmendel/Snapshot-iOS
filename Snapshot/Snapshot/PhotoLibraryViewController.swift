@@ -51,7 +51,7 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
     
     // Show an enlarged view of the photo when it is tapped.
     internal func photoTapGesture(_ sender: UITapGestureRecognizer) {
-        show(screen: "modalImageViewController", modal: true) {
+        show(modal: "modalImageViewController") {
             viewController in
             let modalImageViewController = viewController as! ModalImageViewController
             modalImageViewController.modalPresentationStyle = .overFullScreen

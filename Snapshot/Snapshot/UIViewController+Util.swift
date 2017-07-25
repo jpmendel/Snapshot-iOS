@@ -10,17 +10,23 @@ import UIKit
 
 extension UIViewController {
     
-    // Shows a new screen.
-    internal func show(screen: String, animated: Bool = true, modal: Bool = false, setup: ((_ viewController: UIViewController) -> Void)? = nil) {
+    // Shows a new app stack screen.
+    internal func show(screen: String, animated: Bool = true, setup: ((_ viewController: UIViewController) -> Void)? = nil) {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: screen) {
             if let setupFunction = setup {
                 setupFunction(viewController)
             }
-            if modal {
-                navigationController?.present(viewController, animated: animated, completion: nil)
-            } else {
-                navigationController?.pushViewController(viewController, animated: animated)
+            navigationController?.pushViewController(viewController, animated: animated)
+        }
+    }
+    
+    // Shows a new modal screen.
+    internal func show(modal: String, animated: Bool = true, setup: ((_ viewController: UIViewController) -> Void)? = nil) {
+        if let viewController = storyboard?.instantiateViewController(withIdentifier: modal) {
+            if let setupFunction = setup {
+                setupFunction(viewController)
             }
+            navigationController?.present(viewController, animated: animated, completion: nil)
         }
     }
     
