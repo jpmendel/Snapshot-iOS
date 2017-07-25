@@ -10,6 +10,7 @@ import UIKit
 
 extension UIViewController {
     
+    // Shows a new screen.
     internal func show(screen: String, animated: Bool = true, modal: Bool = false, setup: ((_ viewController: UIViewController) -> Void)? = nil) {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: screen) {
             if let setupFunction = setup {
@@ -23,10 +24,12 @@ extension UIViewController {
         }
     }
     
+    // Goes back to the last viewed screen.
     internal func back(animated: Bool = true) {
         navigationController?.popViewController(animated: animated)
     }
     
+    // Goes back to a screen of a specific type.
     internal func back<T>(to screen: T.Type, animated: Bool = true) {
         if let viewControllers = navigationController?.viewControllers {
             for viewController in viewControllers {
@@ -37,6 +40,7 @@ extension UIViewController {
         }
     }
     
+    // Closes a modal screen.
     internal func close(from navController: UINavigationController? = nil, animated: Bool = true) {
         if let nav = navController {
             nav.dismiss(animated: animated, completion: nil)

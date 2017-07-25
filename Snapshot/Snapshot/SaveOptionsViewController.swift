@@ -10,18 +10,23 @@ import UIKit
 
 class SaveOptionsViewController: UIViewController {
 
+    // The cancel button in the top left.
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     
+    // The button to save an image for a certain amount of time.
     @IBOutlet weak var saveTimeButton: UIButton!
     
+    // The button to save an image until a certain date.
     @IBOutlet weak var saveDateButton: UIButton!
     
+    // Runs when the view controller first loads.
     internal override func viewDidLoad() {
         super.viewDidLoad()
         setupActions()
         formatButtons()
     }
     
+    // Sets up the actions for any interactive objects on the screen.
     private func setupActions() {
         cancelButton.target = self
         cancelButton.action = #selector(cancelButtonPress(_:))
@@ -29,6 +34,7 @@ class SaveOptionsViewController: UIViewController {
         saveDateButton.addTarget(self, action: #selector(saveDateButtonPress(_:)), for: .touchDown)
     }
     
+    // Formats the appearance of the buttons on the screen.
     private func formatButtons() {
         saveTimeButton.layer.cornerRadius = 10
         saveTimeButton.clipsToBounds = true
@@ -36,14 +42,17 @@ class SaveOptionsViewController: UIViewController {
         saveDateButton.clipsToBounds = true
     }
     
+    // Go back to the main view controller when cancel is pressed.
     internal func cancelButtonPress(_ sender: UIBarButtonItem) {
         back()
     }
     
+    // Go to the screen to select a time value for how long to save an image.
     internal func saveTimeButtonPress(_ sender: UIButton) {
         show(screen: "saveTimeViewController")
     }
     
+    // Go to the screen to select a date to save an image until.
     internal func saveDateButtonPress(_ sender: UIButton) {
         show(screen: "saveDateViewController")
     }
