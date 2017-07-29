@@ -132,13 +132,15 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
             let imageHeight = image.size.height
             var x: CGFloat = 0.0
             var y: CGFloat = 0.0
-            var width: CGFloat = 0.0
-            var height: CGFloat = 0.0
-            if imageWidth < imageHeight {
+            var width: CGFloat
+            var height: CGFloat
+            if imageWidth == imageHeight {
+                return
+            } else if imageWidth < imageHeight {
                 x = (imageHeight - imageWidth) / 2.0
                 width = imageWidth
                 height = imageWidth
-            } else if imageWidth > imageHeight {
+            } else {
                 y = (imageWidth - imageHeight) / 2.0
                 width = imageHeight
                 height = imageHeight
