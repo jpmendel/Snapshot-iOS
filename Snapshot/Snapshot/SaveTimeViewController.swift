@@ -69,9 +69,8 @@ class SaveTimeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             let expireDate = Calendar.current.date(byAdding: unitSelected, value: timeSelected, to: Date())!
             let savedImage = SavedImage(image, expireDate: expireDate)
             DataManager.savedImages += [savedImage]
-            DataManager.saveData()
         }
-        back(to: CameraViewController.self)
+        back(to: PhotoLibraryViewController.self)
     }
     
     // Set the number of components in the time value picker.

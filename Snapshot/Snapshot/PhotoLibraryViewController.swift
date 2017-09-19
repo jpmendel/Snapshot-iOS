@@ -2,20 +2,21 @@
 //  PhotoLibraryViewController.swift
 //  Snapshot
 //
-//  Created by Jacob Mendelowitz on 7/11/17.
+//  Created by Jacob Mendelowitz on 7/10/17.
 //  Copyright © 2017 Jacob Mendelowitz. All rights reserved.
 //
 
 import UIKit
+import AVKit
 import AudioToolbox
 
-class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
-    
-    // The back button in the top left corner.
-    @IBOutlet weak var backButton: UIBarButtonItem!
+class PhotoLibraryViewController: UIViewController, UINavigationControllerDelegate, UIGestureRecognizerDelegate, UIImagePickerControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     // The collection of saved photos.
-    @IBOutlet var photoCollection: UICollectionView!
+    @IBOutlet weak var photoCollection: UICollectionView!
+    
+    // The button to take a new photo.
+    @IBOutlet weak var takePhotoButton: UIButton!
     
     // A timer to check for expired photos.
     private var timer: Timer = Timer()
@@ -27,26 +28,49 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
     internal override func viewDidLoad() {
         super.viewDidLoad()
         setupActions()
+        formatButtons()
+    }
+    
+    // Runs when the view is about to appear.
+    internal override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkForExpiredPhotos()
     }
     
     // Runs each time the view controller appears.
     internal override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        DataManager.checkExpiredImages()
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(checkForExpiredPhotos),
+        super.viewDidAppear(animated)
+        timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(checkForExpiredPhotos),
                                      userInfo: nil, repeats: true)
+    }
+    
+    // Runs when the view is about to disappear.
+    internal override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        timer.invalidate()
     }
     
     // Sets up the actions for any interactive objects on the screen.
     private func setupActions() {
-        backButton.target = self
-        backButton.action = #selector(backButtonPress(_:))
+        photoCollection.delegate = self
+        photoCollection.dataSource = self
+        takePhotoButton.addTarget(self, action: #selector(takePhotoButtonPress(_:)), for: .touchDown)
     }
     
-    // Stop the timer and go back to the main screen when the button is pressed.
-    internal func backButtonPress(_ sender: UIBarButtonItem) {
-        timer.invalidate()
-        back()
+    // Formats the appearance of the buttons on the screen.
+    private func formatButtons() {
+        takePhotoButton.layer.cornerRadius = 10
+        takePhotoButton.clipsToBounds = true
+    }
+    
+    // Set up gesture recognizers for this screen.
+    private func setupGestureRecognizers(for photo: UIImageView) {
+        let photoTapGesture = UITapGestureRecognizer(target: self, action: #selector(photoTapGesture(_:)))
+        photoTapGesture.delegate = self
+        photo.addGestureRecognizer(photoTapGesture)
+        let photoLongPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(photoLongPressGesture(_:)))
+        photoLongPressGesture.delegate = self
+        photo.addGestureRecognizer(photoLongPressGesture)
     }
     
     // Show an enlarged view of the photo when it is tapped.
@@ -93,25 +117,51 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
         }
     }
     
-    // Loop through photos and check for any past their date set to remove.
-    internal func checkForExpiredPhotos() {
-        DataManager.checkExpiredImages()
-        photoCollection.reloadData()
+    // Open and set up the camera when the button is pressed.
+    internal func takePhotoButtonPress(_ sender: UIButton) {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            timer.invalidate()
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = false
+            imagePicker.sourceType = .camera
+            imagePicker.cameraFlashMode = .off
+            present(imagePicker, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "Snapshot", message: "This device has no supported camera.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) {
+                action in
+            }
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    // Show save options when the user has finished taking a photo.
+    internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        DataManager.capturedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        show(screen: "saveOptionsViewController")
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    // Dismiss the camera screen when the user hits cancel.
+    internal func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
     
     // Return the number of items in the photo collection.
-    internal override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return DataManager.savedImages.count
     }
     
     // Set the size of each of the photos in the collection view.
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = view.frame.width
+        let width = photoCollection.frame.width
         return CGSize(width: width * 0.33, height: width * 0.33)
     }
     
     // Populate the collection view with saved photos.
-    internal override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath)
         let imageView = cell.contentView.subviews[0] as! UIImageView
         imageView.image = DataManager.savedImages[indexPath.item].image
@@ -151,14 +201,10 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
         }
     }
     
-    // Set up gesture recognizers for this screen.
-    private func setupGestureRecognizers(for photo: UIImageView) {
-        let photoTapGesture = UITapGestureRecognizer(target: self, action: #selector(photoTapGesture(_:)))
-        photoTapGesture.delegate = self
-        photo.addGestureRecognizer(photoTapGesture)
-        let photoLongPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(photoLongPressGesture(_:)))
-        photoLongPressGesture.delegate = self
-        photo.addGestureRecognizer(photoLongPressGesture)
+    // Loop through photos and check for any past their date set to remove.
+    internal func checkForExpiredPhotos() {
+        DataManager.checkExpiredImages()
+        photoCollection.reloadData()
     }
-
+    
 }

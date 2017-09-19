@@ -49,9 +49,8 @@ class SaveDateViewController: UIViewController {
         if let image = DataManager.capturedImage {
             let savedImage = SavedImage(image, expireDate: datePicker.date)
             DataManager.savedImages += [savedImage]
-            DataManager.saveData()
         }
-        back(to: CameraViewController.self)
+        back(to: PhotoLibraryViewController.self)
     }
     
 }

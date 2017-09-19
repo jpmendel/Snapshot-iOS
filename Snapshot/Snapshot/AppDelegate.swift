@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // Runs when the application will stop being active.
     func applicationWillResignActive(_ application: UIApplication) {
-
+        
     }
 
     // Runs when the application will enter the background.
