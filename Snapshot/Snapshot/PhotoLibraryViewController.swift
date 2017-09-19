@@ -31,21 +31,16 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
         formatButtons()
     }
     
-    // Runs when the view is about to appear.
-    internal override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        checkForExpiredPhotos()
-    }
-    
     // Runs each time the view controller appears.
     internal override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        checkForExpiredPhotos()
         timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(checkForExpiredPhotos),
                                      userInfo: nil, repeats: true)
     }
     
     // Runs when the view is about to disappear.
-    internal override func viewWillDisappear(_ animated: Bool) {
+    internal override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         timer.invalidate()
     }
