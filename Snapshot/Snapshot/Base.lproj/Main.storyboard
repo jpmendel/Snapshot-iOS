@@ -222,62 +222,55 @@
             <point key="canvasLocation" x="2516" y="124"/>
         </scene>
         <!--Modal Image View Controller-->
-        <scene sceneID="OII-rh-KJj">
+        <scene sceneID="6VQ-zX-17j">
             <objects>
-                <viewController storyboardIdentifier="modalImageViewController" id="NfL-7R-84C" customClass="ModalImageViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="modalImageViewController" id="Gki-bm-4p8" customClass="ModalImageViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="hjG-Gc-mXm"/>
-                        <viewControllerLayoutGuide type="bottom" id="KhL-pX-6SZ"/>
+                        <viewControllerLayoutGuide type="top" id="Vpe-pV-a5D"/>
+                        <viewControllerLayoutGuide type="bottom" id="Z9W-JK-85b"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="XaS-xc-lPS">
+                    <view key="view" contentMode="scaleToFill" id="Q9P-8Z-lGQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view alpha="0.69999999999999996" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="max-de-gag">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YDq-x5-lKl">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yeH-9k-Ckp">
-                                <rect key="frame" x="12" y="28" width="350" height="625"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RWo-py-oAD">
-                                        <rect key="frame" x="25" y="25" width="300" height="400"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NaG-7b-x0l">
+                                        <rect key="frame" x="0.0" y="84" width="375" height="500"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Expires: MM/dd/yy - h:mm a" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FWk-Te-CbX">
-                                        <rect key="frame" x="25" y="460" width="300" height="48"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29a-s8-k9n">
-                                <rect key="frame" x="112" y="570" width="150" height="60"/>
+                            </scrollView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Expires: MM/dd/yyyy - h:mm a" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lqF-7n-QgT">
+                                <rect key="frame" x="26" y="594" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Close">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0i0-zi-PBj">
+                                <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="X">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
-                        <outlet property="closeButton" destination="29a-s8-k9n" id="8rB-8D-UWz"/>
-                        <outlet property="photoBackground" destination="yeH-9k-Ckp" id="5Ej-Rw-xbI"/>
-                        <outlet property="photoText" destination="FWk-Te-CbX" id="cAW-uY-pab"/>
-                        <outlet property="photoView" destination="RWo-py-oAD" id="n9p-1z-NRf"/>
+                        <outlet property="closeButton" destination="0i0-zi-PBj" id="9Yv-dN-erD"/>
+                        <outlet property="photoText" destination="lqF-7n-QgT" id="9X9-8L-RKT"/>
+                        <outlet property="photoView" destination="NaG-7b-x0l" id="kec-Y9-2Pm"/>
+                        <outlet property="scrollView" destination="YDq-x5-lKl" id="I16-Zq-3Zt"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0UC-Ri-ih1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YOE-xB-eP7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3334" y="124"/>
+            <point key="canvasLocation" x="3417" y="124"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DJq-6e-RNE">
