@@ -147,7 +147,11 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate {
         let alert = UIAlertController(title: "Snapshot", message: "Delete now?", preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "Yes", style: .default) {
             action in
-            DataManager.savedImages.remove(at: self.selectedIndex)
+            let savedImage = DataManager.savedImages[self.selectedIndex]
+            if DataManager.deleteImageRecord(savedImage.fileName) {
+                savedImage.deleteFromDisk()
+                DataManager.savedImages.remove(at: self.selectedIndex)
+            }
             self.close(from: self.presenter)
         }
         let noAction = UIAlertAction(title: "No", style: .cancel) {

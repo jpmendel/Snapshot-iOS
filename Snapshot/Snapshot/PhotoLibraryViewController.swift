@@ -96,7 +96,11 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
                     imageView.alpha = 0.0
                 }, completion: {
                     complete in
-                    DataManager.savedImages.remove(at: imageView.tag)
+                    let savedImage = DataManager.savedImages[imageView.tag]
+                    if DataManager.deleteImageRecord(savedImage.fileName) {
+                        savedImage.deleteFromDisk()
+                        DataManager.savedImages.remove(at: imageView.tag)
+                    }
                     self.photoCollection.reloadData()
                     self.alertShowing = false
                 })

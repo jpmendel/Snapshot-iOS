@@ -16,8 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // Runs when the application first starts.
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        DataManager.openDatabase()
-        DataManager.loadData()
+        DataManager.setup()
         return true
     }
 
@@ -28,12 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // Runs when the application will enter the background.
     func applicationDidEnterBackground(_ application: UIApplication) {
-        DataManager.closeDatabase()
+
     }
 
     // Runs when the application comes back into focus.
     func applicationWillEnterForeground(_ application: UIApplication) {
-        DataManager.openDatabase()
+
     }
 
     // Runs when the application becomes active.

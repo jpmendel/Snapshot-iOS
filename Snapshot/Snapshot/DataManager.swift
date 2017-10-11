@@ -20,19 +20,26 @@ class DataManager: NSObject {
     // A pointer to the SQLite3 database used to store data.
     internal static var database: OpaquePointer? = nil
     
+    // The base URL for the app data directory.
+    internal static var baseURL: URL!
+    
+    // Sets up the data manager.
     internal static func setup() {
+        baseURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         createDirectories()
         openDatabase()
         loadData()
     }
     
+    // Creates any subdirectories needed for the app.
     internal static func createDirectories() {
-        let appDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let imageDirectoryPath = appDirectory + "/images"
-        do {
-            try FileManager.default.createDirectory(atPath: imageDirectoryPath, withIntermediateDirectories: true, attributes: nil)
-        } catch {
-            print("Failed to create image directory.")
+        let imageDirectoryURL = baseURL.appendingPathComponent("/images")
+        if !FileManager.default.fileExists(atPath: imageDirectoryURL.path) {
+            do {
+                try FileManager.default.createDirectory(at: imageDirectoryURL, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print("Failed to create image directory.")
+            }
         }
     }
     
@@ -43,17 +50,17 @@ class DataManager: NSObject {
                 if let images = getAllImageRecords() {
                     savedImages = images
                 }
+            } else {
+                print("Failed to create data table.")
             }
         }
     }
     
     // Opens the SQL database.
     internal static func openDatabase() {
-        let appDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let databasePath = appDirectory + "/database.sqlite"
-        print(databasePath)
+        let databaseURL = baseURL.appendingPathComponent("/database.sqlite")
         var openDB: OpaquePointer? = nil
-        if sqlite3_open(databasePath, &openDB) == SQLITE_OK {
+        if sqlite3_open(databaseURL.path, &openDB) == SQLITE_OK {
             database = openDB
         } else {
             print("Error opening database.")
@@ -96,6 +103,22 @@ class DataManager: NSObject {
             }
         }
         sqlite3_finalize(insertImageStatement)
+        return success
+    }
+    
+    // Deletes an image record from the database.
+    internal static func deleteImageRecord(_ fileName: String) -> Bool {
+        var success = false
+        let deleteImageSQLCode = "DELETE FROM saved_images WHERE image_file = ?;"
+        var deleteImageStatement: OpaquePointer? = nil
+        if sqlite3_prepare_v2(database, deleteImageSQLCode, -1, &deleteImageStatement, nil) == SQLITE_OK {
+            let fileString = fileName as NSString
+            sqlite3_bind_text(deleteImageStatement, 1, fileString.utf8String, -1, nil)
+            if sqlite3_step(deleteImageStatement) == SQLITE_DONE {
+                success = true
+            }
+        }
+        sqlite3_finalize(deleteImageStatement)
         return success
     }
     

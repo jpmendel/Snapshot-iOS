@@ -31,9 +31,14 @@ class SavedImage: NSObject {
     // Initialize a saved image from file.
     internal init(file: String, expireDate: String) {
         self.fileName = file
-        let appDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let filePath = appDirectory + "/images/" + file
-        self.image = UIImage(contentsOfFile: filePath) ?? UIImage()
+        do {
+            let fileURL = DataManager.baseURL.appendingPathComponent("/images/" + file)
+            let imageData = try Data(contentsOf: fileURL)
+            self.image = UIImage(data: imageData)!
+        } catch {
+            self.image = UIImage()
+            print("Failed to load image: \(file)")
+        }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy h:mm a"
         self.expireDate = dateFormatter.date(from: expireDate) ?? Date()
@@ -43,12 +48,21 @@ class SavedImage: NSObject {
     internal func saveToDisk() {
         if let imagePNG = UIImagePNGRepresentation(image) {
             do {
-                let appDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-                let filePath = appDirectory + "/images/" + fileName
-                try imagePNG.write(to: URL(fileURLWithPath: filePath))
+                let fileURL = DataManager.baseURL.appendingPathComponent("/images/" + fileName)
+                try imagePNG.write(to: fileURL)
             } catch {
                 print("Failed to save image: \(fileName)")
             }
+        }
+    }
+    
+    // Deletes an image from the device disk.
+    internal func deleteFromDisk() {
+        do {
+            let fileURL = DataManager.baseURL.appendingPathComponent("/images/" + fileName)
+            try FileManager.default.removeItem(at: fileURL)
+        } catch {
+            print("Failed to delete file: \(fileName)")
         }
     }
 
