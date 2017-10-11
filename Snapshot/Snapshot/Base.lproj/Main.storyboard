@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7cj-P2-9a4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7cj-P2-9a4">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Arial.ttf">
+            <string>ArialMT</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Snapshot-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="photoLibraryViewController" id="BYZ-38-t0r" customClass="PhotoLibraryViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PhotoLibraryViewController" id="BYZ-38-t0r" customClass="PhotoLibraryViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -73,7 +78,7 @@
         <!--Save Photo-->
         <scene sceneID="6QD-4n-DwJ">
             <objects>
-                <viewController storyboardIdentifier="saveOptionsViewController" id="QSe-Er-zCq" customClass="SaveOptionsViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SaveOptionsViewController" id="QSe-Er-zCq" customClass="SaveOptionsViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HAl-x0-cyc"/>
                         <viewControllerLayoutGuide type="bottom" id="4Fv-uY-fdo"/>
@@ -121,7 +126,7 @@
         <!--Save Photo-->
         <scene sceneID="nfg-kb-nCW">
             <objects>
-                <viewController storyboardIdentifier="saveTimeViewController" id="2Tn-Vk-9Vx" customClass="SaveTimeViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SaveTimeViewController" id="2Tn-Vk-9Vx" customClass="SaveTimeViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8Ds-cZ-kp5"/>
                         <viewControllerLayoutGuide type="bottom" id="Ril-VX-en6"/>
@@ -171,7 +176,7 @@
         <!--Save Photo-->
         <scene sceneID="tvB-qt-cDL">
             <objects>
-                <viewController storyboardIdentifier="saveDateViewController" id="aqv-xJ-fAL" customClass="SaveDateViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SaveDateViewController" id="aqv-xJ-fAL" customClass="SaveDateViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mKr-uq-Het"/>
                         <viewControllerLayoutGuide type="bottom" id="zps-8B-cWA"/>
@@ -224,7 +229,7 @@
         <!--Modal Image View Controller-->
         <scene sceneID="6VQ-zX-17j">
             <objects>
-                <viewController storyboardIdentifier="modalImageViewController" id="Gki-bm-4p8" customClass="ModalImageViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ModalImageViewController" id="Gki-bm-4p8" customClass="ModalImageViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vpe-pV-a5D"/>
                         <viewControllerLayoutGuide type="bottom" id="Z9W-JK-85b"/>
@@ -238,23 +243,37 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NaG-7b-x0l">
-                                        <rect key="frame" x="0.0" y="84" width="375" height="500"/>
+                                        <rect key="frame" x="0.0" y="83" width="375" height="500"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
                             </scrollView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Expires: MM/dd/yyyy - h:mm a" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lqF-7n-QgT">
-                                <rect key="frame" x="26" y="594" width="320" height="60"/>
+                                <rect key="frame" x="26" y="586" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SsW-y7-VoN">
+                                <rect key="frame" x="188" y="627" width="187" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Delete">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0i0-zi-PBj">
-                                <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="20"/>
                                 <state key="normal" title="X">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="idU-dA-Pyw">
+                                <rect key="frame" x="0.0" y="627" width="187" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Send">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
@@ -263,21 +282,23 @@
                     </view>
                     <connections>
                         <outlet property="closeButton" destination="0i0-zi-PBj" id="9Yv-dN-erD"/>
-                        <outlet property="photoText" destination="lqF-7n-QgT" id="9X9-8L-RKT"/>
+                        <outlet property="deleteButton" destination="SsW-y7-VoN" id="sVF-zH-rwb"/>
+                        <outlet property="expireDateText" destination="lqF-7n-QgT" id="RIm-9P-Wag"/>
                         <outlet property="photoView" destination="NaG-7b-x0l" id="kec-Y9-2Pm"/>
                         <outlet property="scrollView" destination="YDq-x5-lKl" id="I16-Zq-3Zt"/>
+                        <outlet property="sendButton" destination="idU-dA-Pyw" id="hAC-D7-owa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YOE-xB-eP7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3417" y="124"/>
+            <point key="canvasLocation" x="3416.8000000000002" y="123.68815592203899"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DJq-6e-RNE">
             <objects>
                 <navigationController id="68v-PP-z6G" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PIa-oN-Gx8">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
@@ -297,7 +318,7 @@
             <objects>
                 <navigationController id="7cj-P2-9a4" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Hnz-SB-ebT">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
@@ -317,7 +338,7 @@
             <objects>
                 <navigationController id="ocQ-xw-CYk" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2ef-qp-n3p">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
@@ -337,7 +358,7 @@
             <objects>
                 <navigationController id="WYd-am-bmw" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sHV-DO-6eD">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">

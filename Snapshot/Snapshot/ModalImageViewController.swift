@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioToolbox
 
 class ModalImageViewController: UIViewController, UIScrollViewDelegate {
 
@@ -17,13 +18,19 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     
     // The text below the photo displaying the expiration date.
-    @IBOutlet weak var photoText: UILabel!
+    @IBOutlet weak var expireDateText: UILabel!
+    
+    // The button to export the photo to another app.
+    @IBOutlet weak var sendButton: UIButton!
+    
+    // The button to delete the current photo.
+    @IBOutlet weak var deleteButton: UIButton!
     
     // The button to close the photo modal.
     @IBOutlet weak var closeButton: UIButton!
     
-    // The selected image to be displayed.
-    internal var selectedImage: SavedImage?
+    // The index of the selected image to be displayed.
+    internal var selectedIndex: Int = 0
     
     // The navigation controller that presented this modal.
     internal var presenter: UINavigationController?
@@ -50,18 +57,21 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate {
     
     // Sets up the enlarged image view.
     private func setupImage() {
-        if let savedImage = selectedImage {
+        if selectedIndex >= 0 && selectedIndex < DataManager.savedImages.count {
+            let savedImage = DataManager.savedImages[selectedIndex]
             photoView.image = savedImage.image
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/dd/yy - h:mm a"
             let expireDate = dateFormatter.string(from: savedImage.expireDate)
-            photoText.text = "Expires: \(expireDate)"
+            expireDateText.text = "Expires: \(expireDate)"
         }
     }
     
     // Sets up the actions for any interactive objects on the screen.
     private func setupActions() {
         closeButton.addTarget(self, action: #selector(closeButtonPress(_:)), for: .touchDown)
+        sendButton.addTarget(self, action: #selector(sendButtonPress(_:)), for: .touchDown)
+        deleteButton.addTarget(self, action: #selector(deleteButtonPress(_:)), for: .touchDown)
     }
     
     // Sets up the scroll view to manipulate the image on the screen.
@@ -80,7 +90,9 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate {
     // This runs when the user zooms the view.
     internal func scrollViewDidZoom(_ scrollView: UIScrollView) {
         closeButton.isHidden = true
-        photoText.isHidden = true
+        expireDateText.isHidden = true
+        sendButton.isHidden = true
+        deleteButton.isHidden = true
         repositionScrolledImage()
     }
     
@@ -88,7 +100,9 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate {
     internal func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         if scrollView.zoomScale <= scrollView.minimumZoomScale {
             closeButton.isHidden = false
-            photoText.isHidden = false
+            expireDateText.isHidden = false
+            sendButton.isHidden = false
+            deleteButton.isHidden = false
         }
     }
     
@@ -118,6 +132,30 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate {
         let ox = (screenSize.width > realImageSize.width) ? (screenSize.width - realImageSize.width) / 2 : 0
         let oy = (screenSize.height > realImageSize.height) ? (screenSize.height - realImageSize.height) / 2 : 0
         scrollView.contentInset = UIEdgeInsetsMake(oy, ox, oy, ox)
+    }
+    
+    internal func sendButtonPress(_ sender: UIButton) {
+        if let image = photoView.image {
+            let shareMenu = UIActivityViewController.init(activityItems: [image], applicationActivities: nil)
+            shareMenu.excludedActivityTypes = [.postToVimeo, .postToWeibo, .openInIBooks]
+            present(shareMenu, animated: true, completion: nil)
+        }
+    }
+    
+    internal func deleteButtonPress(_ sender: UIButton) {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+        let alert = UIAlertController(title: "Snapshot", message: "Delete now?", preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "Yes", style: .default) {
+            action in
+            DataManager.savedImages.remove(at: self.selectedIndex)
+            self.close(from: self.presenter)
+        }
+        let noAction = UIAlertAction(title: "No", style: .cancel) {
+            action in
+        }
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        present(alert, animated: true, completion: nil)
     }
     
     // Go back to the photo library when pressed.

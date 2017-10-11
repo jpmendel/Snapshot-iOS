@@ -22,7 +22,7 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Snapshot needs to access your camera to take photos.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
+	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Snapshot will store saved photos to your library.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

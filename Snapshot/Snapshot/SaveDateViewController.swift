@@ -47,8 +47,11 @@ class SaveDateViewController: UIViewController {
     // Save the image when the button is pressed and go back to the main screen.
     internal func confirmButtonPress(_ sender: UIButton) {
         if let image = DataManager.capturedImage {
-            let savedImage = SavedImage(image, expireDate: datePicker.date)
-            DataManager.savedImages += [savedImage]
+            let savedImage = SavedImage(image: image, expireDate: datePicker.date)
+            if DataManager.saveImageRecord(savedImage) {
+                savedImage.saveToDisk()
+                DataManager.savedImages += [savedImage]
+            }
         }
         back(to: PhotoLibraryViewController.self)
     }

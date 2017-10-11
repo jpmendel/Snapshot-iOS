@@ -49,12 +49,12 @@ class SaveOptionsViewController: UIViewController {
     
     // Go to the screen to select a time value for how long to save an image.
     internal func saveTimeButtonPress(_ sender: UIButton) {
-        show(screen: "saveTimeViewController")
+        show(screen: "SaveTimeViewController")
     }
     
     // Go to the screen to select a date to save an image until.
     internal func saveDateButtonPress(_ sender: UIButton) {
-        show(screen: "saveDateViewController")
+        show(screen: "SaveDateViewController")
     }
 
 }

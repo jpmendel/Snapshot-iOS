@@ -58,7 +58,7 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
         takePhotoButton.clipsToBounds = true
     }
     
-    // Set up gesture recognizers for this screen.
+    // Set up gesture recognizers for a specific photo on the screen.
     private func setupGestureRecognizers(for photo: UIImageView) {
         let photoTapGesture = UITapGestureRecognizer(target: self, action: #selector(photoTapGesture(_:)))
         photoTapGesture.delegate = self
@@ -70,14 +70,14 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
     
     // Show an enlarged view of the photo when it is tapped.
     internal func photoTapGesture(_ sender: UITapGestureRecognizer) {
-        show(modal: "modalImageViewController") {
+        show(modal: "ModalImageViewController") {
             viewController in
             let modalImageViewController = viewController as! ModalImageViewController
             modalImageViewController.modalPresentationStyle = .overFullScreen
             modalImageViewController.modalTransitionStyle = .crossDissolve
             if let imageView = sender.view as? UIImageView {
                 modalImageViewController.presenter = self.navigationController
-                modalImageViewController.selectedImage = DataManager.savedImages[imageView.tag]
+                modalImageViewController.selectedIndex = imageView.tag
             }
         }
     }
@@ -135,7 +135,7 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
     // Show save options when the user has finished taking a photo.
     internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         DataManager.capturedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
-        show(screen: "saveOptionsViewController")
+        show(screen: "SaveOptionsViewController")
         picker.dismiss(animated: true, completion: nil)
     }
     

@@ -67,8 +67,11 @@ class SaveTimeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     internal func confirmButtonPress(_ sender: UIButton) {
         if let image = DataManager.capturedImage {
             let expireDate = Calendar.current.date(byAdding: unitSelected, value: timeSelected, to: Date())!
-            let savedImage = SavedImage(image, expireDate: expireDate)
-            DataManager.savedImages += [savedImage]
+            let savedImage = SavedImage(image: image, expireDate: expireDate)
+            if DataManager.saveImageRecord(savedImage) {
+                savedImage.saveToDisk()
+                DataManager.savedImages += [savedImage]
+            }
         }
         back(to: PhotoLibraryViewController.self)
     }
