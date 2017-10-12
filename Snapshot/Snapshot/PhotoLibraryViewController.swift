@@ -10,6 +10,9 @@ import UIKit
 import AVKit
 import AudioToolbox
 
+/**
+ * A class to control the main screen that displays the user's photos and the button to take a new photo.
+ */
 class PhotoLibraryViewController: UIViewController, UINavigationControllerDelegate, UIGestureRecognizerDelegate, UIImagePickerControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     // The collection of saved photos.
@@ -69,7 +72,7 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
     }
     
     // Show an enlarged view of the photo when it is tapped.
-    internal func photoTapGesture(_ sender: UITapGestureRecognizer) {
+    @objc internal func photoTapGesture(_ sender: UITapGestureRecognizer) {
         show(modal: "ModalImageViewController") {
             viewController in
             let modalImageViewController = viewController as! ModalImageViewController
@@ -83,7 +86,7 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
     }
     
     // Prompt to delete a photo when it is long pressed.
-    internal func photoLongPressGesture(_ sender: UILongPressGestureRecognizer) {
+    @objc internal func photoLongPressGesture(_ sender: UILongPressGestureRecognizer) {
         if alertShowing {
             return
         }
@@ -97,10 +100,7 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
                 }, completion: {
                     complete in
                     let savedImage = DataManager.savedImages[imageView.tag]
-                    if DataManager.deleteImageRecord(savedImage.fileName) {
-                        savedImage.deleteFromDisk()
-                        DataManager.savedImages.remove(at: imageView.tag)
-                    }
+                    DataManager.deleteImageRecord(savedImage)
                     self.photoCollection.reloadData()
                     self.alertShowing = false
                 })
@@ -117,7 +117,7 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
     }
     
     // Open and set up the camera when the button is pressed.
-    internal func takePhotoButtonPress(_ sender: UIButton) {
+    @objc internal func takePhotoButtonPress(_ sender: UIButton) {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             timer.invalidate()
             let imagePicker = UIImagePickerController()
@@ -180,7 +180,7 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
             let imageWidth = image.size.width
             let imageHeight = image.size.height
             var x: CGFloat = 0.0
-            var y: CGFloat = 0.0
+            let y: CGFloat = 0.0
             var width: CGFloat
             var height: CGFloat
             if imageWidth == imageHeight {
@@ -190,7 +190,7 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
                 width = imageWidth
                 height = imageWidth
             } else {
-                y = (imageWidth - imageHeight) / 2.0
+                x = (imageWidth - imageHeight) / 2.0
                 width = imageHeight
                 height = imageHeight
             }
@@ -201,7 +201,7 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
     }
     
     // Loop through photos and check for any past their date set to remove.
-    internal func checkForExpiredPhotos() {
+    @objc internal func checkForExpiredPhotos() {
         DataManager.checkExpiredImages()
         photoCollection.reloadData()
     }

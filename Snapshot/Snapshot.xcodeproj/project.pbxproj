@@ -19,6 +19,7 @@
 		16EAD1FE1F1467CC001A5AC1 /* SaveTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EAD1FD1F1467CC001A5AC1 /* SaveTimeViewController.swift */; };
 		16EAD2001F1467D8001A5AC1 /* SaveDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EAD1FF1F1467D8001A5AC1 /* SaveDateViewController.swift */; };
 		16EAD2021F147B8A001A5AC1 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EAD2011F147B8A001A5AC1 /* DataManager.swift */; };
+		16F731C51F8EC15300BECCA9 /* Array+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F731C41F8EC15300BECCA9 /* Array+Util.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		16EAD1FD1F1467CC001A5AC1 /* SaveTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveTimeViewController.swift; sourceTree = "<group>"; };
 		16EAD1FF1F1467D8001A5AC1 /* SaveDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveDateViewController.swift; sourceTree = "<group>"; };
 		16EAD2011F147B8A001A5AC1 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		16F731C41F8EC15300BECCA9 /* Array+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Util.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				16C7763D1F251A5C00616993 /* UIViewController+Util.swift */,
+				16F731C41F8EC15300BECCA9 /* Array+Util.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				16A7CC3A1F17064300D2CC55 /* SavedImage.swift in Sources */,
 				16EAD2021F147B8A001A5AC1 /* DataManager.swift in Sources */,
 				16EAD2001F1467D8001A5AC1 /* SaveDateViewController.swift in Sources */,
+				16F731C51F8EC15300BECCA9 /* Array+Util.swift in Sources */,
 				16D265BC1F0C18E200D37E8E /* AppDelegate.swift in Sources */,
 				16EAD1F81F145C71001A5AC1 /* PhotoLibraryViewController.swift in Sources */,
 				16C776401F252ACF00616993 /* ModalImageViewController.swift in Sources */,
@@ -342,7 +346,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jmware.Snapshot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -355,7 +359,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jmware.Snapshot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

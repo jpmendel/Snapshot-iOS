@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ * A class to represent a saved image.
+ */
 class SavedImage: NSObject {
     
     // The filename the image will be saved as.
@@ -23,7 +26,7 @@ class SavedImage: NSObject {
     internal init(image: UIImage, expireDate: Date) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
-        self.fileName = "image-" + dateFormatter.string(from: Date()) + ".png"
+        self.fileName = "image-" + dateFormatter.string(from: Date()) + ".jpg"
         self.image = image
         self.expireDate = expireDate
     }
@@ -37,21 +40,21 @@ class SavedImage: NSObject {
             self.image = UIImage(data: imageData)!
         } catch {
             self.image = UIImage()
-            print("Failed to load image: \(file)")
+            print("SAVED IMAGE: Failed to load file: \(file)")
         }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy h:mm a"
-        self.expireDate = dateFormatter.date(from: expireDate) ?? Date()
+        self.expireDate = dateFormatter.date(from: expireDate)!
     }
     
     // Saves the image to the device disk.
     internal func saveToDisk() {
-        if let imagePNG = UIImagePNGRepresentation(image) {
+        if let imageJPEG = UIImageJPEGRepresentation(image, 1.0) {
             do {
                 let fileURL = DataManager.baseURL.appendingPathComponent("/images/" + fileName)
-                try imagePNG.write(to: fileURL)
+                try imageJPEG.write(to: fileURL)
             } catch {
-                print("Failed to save image: \(fileName)")
+                print("SAVED IMAGE: Failed to save file: \(fileName)")
             }
         }
     }
@@ -62,7 +65,7 @@ class SavedImage: NSObject {
             let fileURL = DataManager.baseURL.appendingPathComponent("/images/" + fileName)
             try FileManager.default.removeItem(at: fileURL)
         } catch {
-            print("Failed to delete file: \(fileName)")
+            print("SAVED IMAGE: Failed to delete file: \(fileName)")
         }
     }
 

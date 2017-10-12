@@ -9,6 +9,9 @@
 import UIKit
 import AudioToolbox
 
+/**
+ * A class to control the screen that allows a user to view a saved image.
+ */
 class ModalImageViewController: UIViewController, UIScrollViewDelegate {
 
     // The photo to be displayed on the screen.
@@ -41,6 +44,7 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate {
         setupImage()
         setupActions()
         setupScrollView()
+        setScreenForImageOrientation()
     }
     
     // Runs when the view controller is about to appear.
@@ -89,20 +93,36 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate {
     
     // This runs when the user zooms the view.
     internal func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        closeButton.isHidden = true
-        expireDateText.isHidden = true
-        sendButton.isHidden = true
-        deleteButton.isHidden = true
+        UIView.animate(withDuration: 0.25, animations: {
+            self.closeButton.alpha = 0.0
+            self.expireDateText.alpha = 0.0
+            self.sendButton.alpha = 0.0
+            self.deleteButton.alpha = 0.0
+        }, completion: {
+            complete in
+            self.closeButton.isUserInteractionEnabled = false
+            self.expireDateText.isUserInteractionEnabled = false
+            self.sendButton.isUserInteractionEnabled = false
+            self.deleteButton.isUserInteractionEnabled = false
+        })
         repositionScrolledImage()
     }
     
     // This runs when the user ends a zoom.
     internal func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         if scrollView.zoomScale <= scrollView.minimumZoomScale {
-            closeButton.isHidden = false
-            expireDateText.isHidden = false
-            sendButton.isHidden = false
-            deleteButton.isHidden = false
+            UIView.animate(withDuration: 0.25, animations: {
+                self.closeButton.alpha = 1.0
+                self.expireDateText.alpha = 1.0
+                self.sendButton.alpha = 1.0
+                self.deleteButton.alpha = 1.0
+            }, completion: {
+                complete in
+                self.closeButton.isUserInteractionEnabled = true
+                self.expireDateText.isUserInteractionEnabled = true
+                self.sendButton.isUserInteractionEnabled = true
+                self.deleteButton.isUserInteractionEnabled = true
+            })
         }
     }
     
@@ -134,7 +154,20 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate {
         scrollView.contentInset = UIEdgeInsetsMake(oy, ox, oy, ox)
     }
     
-    internal func sendButtonPress(_ sender: UIButton) {
+    // Sets the proper size and position of an image if it is horizontal.
+    private func setScreenForImageOrientation() {
+        let imageWidth = photoView.image!.size.width
+        let imageHeight = photoView.image!.size.height
+        if imageWidth > imageHeight {
+            let finalWidth = scrollView.frame.width
+            let finalHeight = scrollView.frame.width * (imageHeight / imageWidth)
+            let y = photoView.frame.minY + (photoView.frame.height - finalHeight) / 2
+            photoView.frame = CGRect(x: 0.0, y: y, width: finalWidth, height: finalHeight)
+        }
+    }
+    
+    // Options to send the photo to various different activities when pressed.
+    @objc private func sendButtonPress(_ sender: UIButton) {
         if let image = photoView.image {
             let shareMenu = UIActivityViewController.init(activityItems: [image], applicationActivities: nil)
             shareMenu.excludedActivityTypes = [.postToVimeo, .postToWeibo, .openInIBooks]
@@ -142,28 +175,31 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    internal func deleteButtonPress(_ sender: UIButton) {
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-        let alert = UIAlertController(title: "Snapshot", message: "Delete now?", preferredStyle: .alert)
-        let yesAction = UIAlertAction(title: "Yes", style: .default) {
-            action in
-            let savedImage = DataManager.savedImages[self.selectedIndex]
-            if DataManager.deleteImageRecord(savedImage.fileName) {
-                savedImage.deleteFromDisk()
-                DataManager.savedImages.remove(at: self.selectedIndex)
+    // Delete the photo when pressed.
+    @objc private func deleteButtonPress(_ sender: UIButton) {
+        if photoView.image != nil {
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+            let alert = UIAlertController(title: "Snapshot", message: "Delete now?", preferredStyle: .alert)
+            let yesAction = UIAlertAction(title: "Yes", style: .default) {
+                action in
+                let savedImage = DataManager.savedImages[self.selectedIndex]
+                DataManager.deleteImageRecord(savedImage)
+                if let photoLibraryViewController = self.presenter?.topViewController as? PhotoLibraryViewController {
+                    photoLibraryViewController.checkForExpiredPhotos()
+                    self.close(from: self.presenter)
+                }
             }
-            self.close(from: self.presenter)
+            let noAction = UIAlertAction(title: "No", style: .cancel) {
+                action in
+            }
+            alert.addAction(yesAction)
+            alert.addAction(noAction)
+            present(alert, animated: true, completion: nil)
         }
-        let noAction = UIAlertAction(title: "No", style: .cancel) {
-            action in
-        }
-        alert.addAction(yesAction)
-        alert.addAction(noAction)
-        present(alert, animated: true, completion: nil)
     }
     
     // Go back to the photo library when pressed.
-    internal func closeButtonPress(_ sender: UIButton) {
+    @objc private func closeButtonPress(_ sender: UIButton) {
         close(from: presenter)
     }
 

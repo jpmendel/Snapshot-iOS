@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ * A class to control the screen that allows a user to select a date to save an image until.
+ */
 class SaveDateViewController: UIViewController {
 
     // The cancel button in the top left.
@@ -40,18 +43,15 @@ class SaveDateViewController: UIViewController {
     }
 
     // Go back one screen when cancel is pressed.
-    internal func cancelButtonPress(_ sender: UIBarButtonItem) {
+    @objc private func cancelButtonPress(_ sender: UIBarButtonItem) {
         back()
     }
     
     // Save the image when the button is pressed and go back to the main screen.
-    internal func confirmButtonPress(_ sender: UIButton) {
+    @objc private func confirmButtonPress(_ sender: UIButton) {
         if let image = DataManager.capturedImage {
             let savedImage = SavedImage(image: image, expireDate: datePicker.date)
-            if DataManager.saveImageRecord(savedImage) {
-                savedImage.saveToDisk()
-                DataManager.savedImages += [savedImage]
-            }
+            DataManager.saveImageRecord(savedImage)
         }
         back(to: PhotoLibraryViewController.self)
     }

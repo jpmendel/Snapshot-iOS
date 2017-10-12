@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ * Utility extensions for the UIViewController.
+ */
 extension UIViewController {
     
     // Shows a new app stack screen.

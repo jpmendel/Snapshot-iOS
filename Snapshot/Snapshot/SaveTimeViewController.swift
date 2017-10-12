@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ * A class to control the screen that allows a user to select a time to save an image for.
+ */
 class SaveTimeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     // The cancel button in the top left.
@@ -59,19 +62,16 @@ class SaveTimeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     // Go back one screen when cancel is pressed.
-    internal func cancelButtonPress(_ sender: UIBarButtonItem) {
+    @objc private func cancelButtonPress(_ sender: UIBarButtonItem) {
         back()
     }
     
     // Save the image when the button is pressed and go back to the main screen.
-    internal func confirmButtonPress(_ sender: UIButton) {
+    @objc private func confirmButtonPress(_ sender: UIButton) {
         if let image = DataManager.capturedImage {
             let expireDate = Calendar.current.date(byAdding: unitSelected, value: timeSelected, to: Date())!
             let savedImage = SavedImage(image: image, expireDate: expireDate)
-            if DataManager.saveImageRecord(savedImage) {
-                savedImage.saveToDisk()
-                DataManager.savedImages += [savedImage]
-            }
+            DataManager.saveImageRecord(savedImage)
         }
         back(to: PhotoLibraryViewController.self)
     }

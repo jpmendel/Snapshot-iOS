@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ * A class to control the screen that shows the user their options for setting the time to save an image.
+ */
 class SaveOptionsViewController: UIViewController {
 
     // The cancel button in the top left.
@@ -43,17 +46,17 @@ class SaveOptionsViewController: UIViewController {
     }
     
     // Go back to the main view controller when cancel is pressed.
-    internal func cancelButtonPress(_ sender: UIBarButtonItem) {
+    @objc private func cancelButtonPress(_ sender: UIBarButtonItem) {
         back()
     }
     
     // Go to the screen to select a time value for how long to save an image.
-    internal func saveTimeButtonPress(_ sender: UIButton) {
+    @objc private func saveTimeButtonPress(_ sender: UIButton) {
         show(screen: "SaveTimeViewController")
     }
     
     // Go to the screen to select a date to save an image until.
-    internal func saveDateButtonPress(_ sender: UIButton) {
+    @objc private func saveDateButtonPress(_ sender: UIButton) {
         show(screen: "SaveDateViewController")
     }
 
