@@ -50,13 +50,20 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate {
     // Runs when the view controller is about to appear.
     internal override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
+    }
+    
+    // Runs when the view controller first appears.
+    internal override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         UIApplication.shared.isStatusBarHidden = true
     }
     
     // Runs when the view controller is about to disappear.
     internal override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillDisappear(animated)
         UIApplication.shared.isStatusBarHidden = false
+        UIApplication.shared.statusBarStyle = .lightContent
     }
     
     // Sets up the enlarged image view.
@@ -166,7 +173,7 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    // Options to send the photo to various different activities when pressed.
+    // Options to export the photo to various different activities when pressed.
     @objc private func sendButtonPress(_ sender: UIButton) {
         if let image = photoView.image {
             let shareMenu = UIActivityViewController.init(activityItems: [image], applicationActivities: nil)
@@ -189,9 +196,7 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate {
                     self.close(from: self.presenter)
                 }
             }
-            let noAction = UIAlertAction(title: "No", style: .cancel) {
-                action in
-            }
+            let noAction = UIAlertAction(title: "No", style: .cancel)
             alert.addAction(yesAction)
             alert.addAction(noAction)
             present(alert, animated: true, completion: nil)

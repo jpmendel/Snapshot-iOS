@@ -128,9 +128,7 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
             present(imagePicker, animated: true, completion: nil)
         } else {
             let alert = UIAlertController(title: "Snapshot", message: "This device has no supported camera.", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default) {
-                action in
-            }
+            let okAction = UIAlertAction(title: "OK", style: .default)
             alert.addAction(okAction)
             present(alert, animated: true, completion: nil)
         }
@@ -166,8 +164,8 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
         imageView.image = DataManager.savedImages[indexPath.item].image
         formatPhoto(imageView)
         setupGestureRecognizers(for: imageView)
-        imageView.isUserInteractionEnabled = true
         imageView.alpha = 1.0
+        imageView.isUserInteractionEnabled = true
         imageView.tag = indexPath.item
         return cell
     }

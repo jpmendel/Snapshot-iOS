@@ -41,7 +41,7 @@ class SaveTimeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         setupPicker()
         formatButtons()
     }
-    
+
     // Sets up the actions for any interactive objects on the screen.
     private func setupActions() {
         cancelButton.target = self
