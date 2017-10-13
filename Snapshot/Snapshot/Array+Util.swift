@@ -14,7 +14,7 @@ import Foundation
 extension Array where Element: Equatable {
     
     // Remove an object from an array by value.
-    mutating func remove(object: Element) {
+    internal mutating func remove(object: Element) {
         if let index = index(of: object) {
             remove(at: index)
         }

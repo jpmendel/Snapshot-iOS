@@ -71,10 +71,7 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate {
         if selectedIndex >= 0 && selectedIndex < DataManager.savedImages.count {
             let savedImage = DataManager.savedImages[selectedIndex]
             photoView.image = savedImage.image
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yy - h:mm a"
-            let expireDate = dateFormatter.string(from: savedImage.expireDate)
-            expireDateText.text = "Expires: \(expireDate)"
+            expireDateText.text = savedImage.getReadableExpireText()
         }
     }
     

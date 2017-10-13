@@ -47,6 +47,22 @@ class SavedImage: NSObject {
         self.expireDate = dateFormatter.date(from: expireDate)!
     }
     
+    // Gets a string for a more readable expire time.
+    internal func getReadableExpireText() -> String {
+        if expireDate.years(from: Date()) > 0 {
+            return "Expires in \(expireDate.years(from: Date())) years"
+        } else if expireDate.months(from: Date()) > 0 {
+            return "Expires in \(expireDate.months(from: Date())) months"
+        } else if expireDate.days(from: Date()) > 0 {
+            return "Expires in \(expireDate.days(from: Date())) days"
+        } else if expireDate.hours(from: Date()) > 0 {
+            return "Expires in \(expireDate.hours(from: Date())) hours"
+        } else if expireDate.minutes(from: Date()) > 0 {
+            return "Expires in \(expireDate.minutes(from: Date())) minutes"
+        }
+        return ""
+    }
+    
     // Saves the image to the device disk.
     internal func saveToDisk() {
         if let imageJPEG = UIImageJPEGRepresentation(image, 1.0) {

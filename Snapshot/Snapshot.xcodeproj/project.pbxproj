@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		165D7E511F901B0400DCF1D7 /* Date+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165D7E501F901B0400DCF1D7 /* Date+Util.swift */; };
 		16A7CC3A1F17064300D2CC55 /* SavedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A7CC391F17064300D2CC55 /* SavedImage.swift */; };
 		16C7763E1F251A5C00616993 /* UIViewController+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C7763D1F251A5C00616993 /* UIViewController+Util.swift */; };
 		16C776401F252ACF00616993 /* ModalImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C7763F1F252ACF00616993 /* ModalImageViewController.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		165D7E501F901B0400DCF1D7 /* Date+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Util.swift"; sourceTree = "<group>"; };
 		16A7CC391F17064300D2CC55 /* SavedImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedImage.swift; sourceTree = "<group>"; };
 		16C7763D1F251A5C00616993 /* UIViewController+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Util.swift"; sourceTree = "<group>"; };
 		16C7763F1F252ACF00616993 /* ModalImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalImageViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 			children = (
 				16C7763D1F251A5C00616993 /* UIViewController+Util.swift */,
 				16F731C41F8EC15300BECCA9 /* Array+Util.swift */,
+				165D7E501F901B0400DCF1D7 /* Date+Util.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 				16EAD1FE1F1467CC001A5AC1 /* SaveTimeViewController.swift in Sources */,
 				16A7CC3A1F17064300D2CC55 /* SavedImage.swift in Sources */,
 				16EAD2021F147B8A001A5AC1 /* DataManager.swift in Sources */,
+				165D7E511F901B0400DCF1D7 /* Date+Util.swift in Sources */,
 				16EAD2001F1467D8001A5AC1 /* SaveDateViewController.swift in Sources */,
 				16F731C51F8EC15300BECCA9 /* Array+Util.swift in Sources */,
 				16D265BC1F0C18E200D37E8E /* AppDelegate.swift in Sources */,
