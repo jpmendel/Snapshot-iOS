@@ -12,7 +12,7 @@ import AudioToolbox
 /**
  * A class to control the screen that allows a user to view a saved image.
  */
-class ModalImageViewController: UIViewController, UIScrollViewDelegate {
+class ModalImageViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
 
     // The photo to be displayed on the screen.
     @IBOutlet weak var photoView: UIImageView!
@@ -86,13 +86,35 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate {
     private func setupScrollView() {
         scrollView.delegate = self
         scrollView.contentSize = view.frame.size
-        scrollView.minimumZoomScale = 1.0
+        scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 6.0
     }
     
     // This is the view that will be zoomed in the scroll view.
     internal func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return photoView
+    }
+    
+    // This runs when the scroll view will start decellerating after being dragged.
+    internal func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        handleScrollOffScreen()
+    }
+    
+    // This runs when the user stops dragging the view.
+    internal func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+       handleScrollOffScreen()
+    }
+    
+    // Handles an event where the user drags the photo off screen.
+    private func handleScrollOffScreen() {
+        if scrollView.zoomScale == 1.0 {
+            let margin = photoView.frame.width / 3.0
+            if scrollView.contentOffset.x < -margin || scrollView.contentOffset.x > margin {
+                close(from: presenter)
+            } else {
+                scrollView.setContentOffset(CGPoint(x: 0.0, y: scrollView.contentOffset.y), animated: true)
+            }
+        }
     }
     
     // This runs when the user zooms the view.
@@ -114,7 +136,12 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate {
     
     // This runs when the user ends a zoom.
     internal func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        if scrollView.zoomScale <= scrollView.minimumZoomScale {
+        if scrollView.zoomScale < 0.6 {
+            close(from: presenter)
+        } else if scrollView.zoomScale < 1.0 {
+            scrollView.setZoomScale(1.0, animated: true)
+        }
+        if scrollView.zoomScale == 1.0 {
             UIView.animate(withDuration: 0.25, animations: {
                 self.closeButton.alpha = 1.0
                 self.expireDateText.alpha = 1.0
@@ -128,12 +155,6 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate {
                 self.deleteButton.isUserInteractionEnabled = true
             })
         }
-    }
-    
-    
-    // This runs when the user finishes scrolling.
-    internal func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-
     }
     
     // Keeps the image being viewed steady on the screen as the user zooms.
@@ -152,7 +173,12 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate {
         frame.size = realImageSize
         photoView.frame = frame
         
-        let screenSize = scrollView.frame.size
+        let screenSize: CGSize
+        if scrollView.zoomScale == 1.0 {
+            screenSize = CGSize(width: scrollView.frame.size.width * 3.0, height: scrollView.frame.size.height)
+        } else {
+            screenSize = scrollView.frame.size
+        }
         let ox = (screenSize.width > realImageSize.width) ? (screenSize.width - realImageSize.width) / 2 : 0
         let oy = (screenSize.height > realImageSize.height) ? (screenSize.height - realImageSize.height) / 2 : 0
         scrollView.contentInset = UIEdgeInsetsMake(oy, ox, oy, ox)
@@ -166,15 +192,16 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate {
             let finalWidth = scrollView.frame.width
             let finalHeight = scrollView.frame.width * (imageHeight / imageWidth)
             let y = photoView.frame.minY + (photoView.frame.height - finalHeight) / 2
-            photoView.frame = CGRect(x: 0.0, y: y, width: finalWidth, height: finalHeight)
+            photoView.frame = CGRect(x: 0.0, y: y, width: finalWidth * 3.0, height: finalHeight)
         }
+        scrollView.contentInset = UIEdgeInsetsMake(0.0, scrollView.frame.width, 0.0, scrollView.frame.width)
     }
     
     // Options to export the photo to various different activities when pressed.
     @objc private func sendButtonPress(_ sender: UIButton) {
         if let image = photoView.image {
             let shareMenu = UIActivityViewController.init(activityItems: [image], applicationActivities: nil)
-            shareMenu.excludedActivityTypes = [.postToVimeo, .postToWeibo, .openInIBooks]
+            shareMenu.excludedActivityTypes = [.postToVimeo, .postToWeibo, .postToTencentWeibo, .openInIBooks]
             present(shareMenu, animated: true, completion: nil)
         }
     }

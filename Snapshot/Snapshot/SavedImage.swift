@@ -22,6 +22,9 @@ class SavedImage: NSObject {
     // The date and time the image expires.
     internal var expireDate: Date
     
+    // Whether or not the saved image is highlighted.
+    internal var selected: Bool = false
+    
     // Initialize a saved image from a UIImage.
     internal init(image: UIImage, expireDate: Date) {
         let dateFormatter = DateFormatter()
@@ -49,18 +52,25 @@ class SavedImage: NSObject {
     
     // Gets a string for a more readable expire time.
     internal func getReadableExpireText() -> String {
+        var expireTime = 0
+        var units = ""
         if expireDate.years(from: Date()) > 0 {
-            return "Expires in \(expireDate.years(from: Date())) years"
+            expireTime = expireDate.years(from: Date())
+            units = "years"
         } else if expireDate.months(from: Date()) > 0 {
-            return "Expires in \(expireDate.months(from: Date())) months"
+            expireTime = expireDate.months(from: Date())
+            units = "months"
         } else if expireDate.days(from: Date()) > 0 {
-            return "Expires in \(expireDate.days(from: Date())) days"
+            expireTime = expireDate.days(from: Date())
+            units = "days"
         } else if expireDate.hours(from: Date()) > 0 {
-            return "Expires in \(expireDate.hours(from: Date())) hours"
-        } else if expireDate.minutes(from: Date()) > 0 {
-            return "Expires in \(expireDate.minutes(from: Date())) minutes"
+            expireTime = expireDate.hours(from: Date())
+            units = "hours"
+        } else {
+            expireTime = expireDate.minutes(from: Date())
+            units = "minutes"
         }
-        return ""
+        return "- Expires in \(expireTime) \(units) -"
     }
     
     // Saves the image to the device disk.

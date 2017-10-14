@@ -193,6 +193,26 @@ class DataManager: NSObject {
         }
     }
     
+    // Returns the number of selected saved images.
+    internal static func getSelectedImageCount() -> Int {
+        var count = 0
+        for savedImage in savedImages {
+            if savedImage.selected {
+                count += 1
+            }
+        }
+        return count
+    }
+    
+    // Deletes all images that have been selected on the photo collection.
+    internal static func deleteSelectedImages() {
+        for i in stride(from: savedImages.count - 1, through: 0, by: -1) {
+            if savedImages[i].selected {
+                deleteImageRecord(savedImages[i])
+            }
+        }
+    }
+    
     // Cleans unused images in device storage.
     internal static func cleanFilesOnDisk() {
         do {

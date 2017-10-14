@@ -15,6 +15,9 @@ import AudioToolbox
  */
 class PhotoLibraryViewController: UIViewController, UINavigationControllerDelegate, UIGestureRecognizerDelegate, UIImagePickerControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    // The button used to delete saved images.
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
+    
     // The collection of saved photos.
     @IBOutlet weak var photoCollection: UICollectionView!
     
@@ -23,9 +26,6 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
     
     // A timer to check for expired photos.
     private var timer: Timer = Timer()
-    
-    // Whether or not an alert box is showing.
-    private var alertShowing: Bool = false
     
     // Runs when the view controller first loads.
     internal override func viewDidLoad() {
@@ -46,12 +46,18 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
     internal override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         timer.invalidate()
+        for image in DataManager.savedImages {
+            image.selected = false
+        }
+        photoCollection.reloadData()
     }
     
     // Sets up the actions for any interactive objects on the screen.
     private func setupActions() {
         photoCollection.delegate = self
         photoCollection.dataSource = self
+        deleteButton.target = self
+        deleteButton.action = #selector(deleteButtonPress(_:))
         takePhotoButton.addTarget(self, action: #selector(takePhotoButtonPress(_:)), for: .touchDown)
     }
     
@@ -62,62 +68,62 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
     }
     
     // Set up gesture recognizers for a specific photo on the screen.
-    private func setupGestureRecognizers(for photo: UIImageView) {
+    private func setupGestureRecognizers(for photo: UICollectionViewCell) {
         let photoTapGesture = UITapGestureRecognizer(target: self, action: #selector(photoTapGesture(_:)))
         photoTapGesture.delegate = self
         photo.addGestureRecognizer(photoTapGesture)
         let photoLongPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(photoLongPressGesture(_:)))
         photoLongPressGesture.delegate = self
+        photoLongPressGesture.minimumPressDuration = 0.25
         photo.addGestureRecognizer(photoLongPressGesture)
     }
     
     // Show an enlarged view of the photo when it is tapped.
-    @objc internal func photoTapGesture(_ sender: UITapGestureRecognizer) {
-        show(modal: "ModalImageViewController") {
-            viewController in
-            let modalImageViewController = viewController as! ModalImageViewController
-            modalImageViewController.modalPresentationStyle = .overFullScreen
-            modalImageViewController.modalTransitionStyle = .crossDissolve
-            if let imageView = sender.view as? UIImageView {
-                modalImageViewController.presenter = self.navigationController
-                modalImageViewController.selectedIndex = imageView.tag
+    @objc private func photoTapGesture(_ sender: UITapGestureRecognizer) {
+        if let cell = sender.view as? UICollectionViewCell {
+            let savedImage = DataManager.savedImages[cell.tag]
+            if savedImage.selected {
+                let highlightView = cell.contentView.subviews[0]
+                UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn, animations: {
+                    highlightView.transform = CGAffineTransform.identity.scaledBy(x: 0.1, y: 0.1)
+                }, completion: {
+                    complete in
+                    highlightView.isHidden = true
+                    savedImage.selected = false
+                })
+            } else {
+                show(modal: "ModalImageViewController") {
+                    viewController in
+                    let modalImageViewController = viewController as! ModalImageViewController
+                    modalImageViewController.modalPresentationStyle = .overFullScreen
+                    modalImageViewController.modalTransitionStyle = .crossDissolve
+                    modalImageViewController.presenter = self.navigationController
+                    modalImageViewController.selectedIndex = cell.tag
+                }
             }
         }
     }
     
     // Prompt to delete a photo when it is long pressed.
-    @objc internal func photoLongPressGesture(_ sender: UILongPressGestureRecognizer) {
-        if alertShowing {
-            return
-        }
-        if let imageView = sender.view {
-            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-            let alert = UIAlertController(title: "Snapshot", message: "Delete now?", preferredStyle: .alert)
-            let yesAction = UIAlertAction(title: "Yes", style: .default) {
-                action in
-                UIView.animate(withDuration: 0.25, animations: {
-                    imageView.alpha = 0.0
+    @objc private func photoLongPressGesture(_ sender: UILongPressGestureRecognizer) {
+        if let cell = sender.view as? UICollectionViewCell {
+            let highlightView = cell.contentView.subviews[0]
+            let savedImage = DataManager.savedImages[cell.tag]
+            if !savedImage.selected {
+                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+                highlightView.isHidden = false
+                UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseOut, animations: {
+                    highlightView.transform = CGAffineTransform.identity
                 }, completion: {
                     complete in
-                    let savedImage = DataManager.savedImages[imageView.tag]
-                    DataManager.deleteImageRecord(savedImage)
-                    self.photoCollection.reloadData()
-                    self.alertShowing = false
+                    savedImage.selected = true
                 })
             }
-            let noAction = UIAlertAction(title: "No", style: .cancel) {
-                action in
-                self.alertShowing = false
-            }
-            alert.addAction(yesAction)
-            alert.addAction(noAction)
-            present(alert, animated: true, completion: nil)
-            alertShowing = true
         }
     }
     
     // Open and set up the camera when the button is pressed.
-    @objc internal func takePhotoButtonPress(_ sender: UIButton) {
+    @objc private func takePhotoButtonPress(_ sender: UIButton) {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             timer.invalidate()
             let imagePicker = UIImagePickerController()
@@ -132,6 +138,25 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
             alert.addAction(okAction)
             present(alert, animated: true, completion: nil)
         }
+    }
+    
+    @objc private func deleteButtonPress(_ sender: UIBarButtonItem) {
+        let selectedImageCount = DataManager.getSelectedImageCount()
+        if selectedImageCount > 0 {
+            let message = selectedImageCount == 1 ?
+                "Delete \(selectedImageCount) image?" : "Delete \(selectedImageCount) images?"
+            let alert = UIAlertController(title: "Snapshot", message: message, preferredStyle: .alert)
+            let yesAction = UIAlertAction(title: "Yes", style: .default) {
+                action in
+                DataManager.deleteSelectedImages()
+                self.photoCollection.reloadData()
+            }
+            let noAction = UIAlertAction(title: "No", style: .cancel)
+            alert.addAction(yesAction)
+            alert.addAction(noAction)
+            present(alert, animated: true, completion: nil)
+        }
+        
     }
     
     // Show save options when the user has finished taking a photo.
@@ -160,21 +185,40 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
     // Populate the collection view with saved photos.
     internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath)
-        let imageView = cell.contentView.subviews[0] as! UIImageView
+        let highlightView = cell.contentView.subviews[0]
+        let imageView = cell.contentView.subviews[1] as! UIImageView
         imageView.image = DataManager.savedImages[indexPath.item].image
         formatPhoto(imageView)
-        setupGestureRecognizers(for: imageView)
-        imageView.alpha = 1.0
-        imageView.isUserInteractionEnabled = true
-        imageView.tag = indexPath.item
+        formatHighlight(highlightView, atIndex: indexPath.item)
+        setupGestureRecognizers(for: cell)
+        cell.isUserInteractionEnabled = true
+        cell.tag = indexPath.item
         return cell
+    }
+    
+    // Formats the highlight box on a cell.
+    private func formatHighlight(_ highlight: UIView, atIndex index: Int) {
+        highlight.layer.cornerRadius = 15
+        highlight.clipsToBounds = true
+        if DataManager.savedImages[index].selected {
+            highlight.transform = CGAffineTransform.identity
+            highlight.isHidden = false
+        } else {
+            highlight.transform = CGAffineTransform.identity.scaledBy(x: 0.1, y: 0.1)
+            highlight.isHidden = true
+        }
     }
     
     // Crop each photo to square dimensions for display and round corners.
     private func formatPhoto(_ photo: UIImageView) {
         photo.layer.cornerRadius = 10
         photo.clipsToBounds = true
-        if let image = photo.image {
+        cropImage(photo)
+    }
+    
+    // Crops an image from an image view to square dimensions.
+    private func cropImage(_ imageView: UIImageView) {
+        if let image = imageView.image {
             let imageWidth = image.size.width
             let imageHeight = image.size.height
             var x: CGFloat = 0.0
@@ -194,7 +238,7 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
             }
             let imageRect = CGRect(x: x, y: y, width: width, height: height)
             let imageRef = image.cgImage!.cropping(to: imageRect)
-            photo.image = UIImage(cgImage: imageRef!, scale: image.scale, orientation: image.imageOrientation)
+            imageView.image = UIImage(cgImage: imageRef!, scale: image.scale, orientation: image.imageOrientation)
         }
     }
     
