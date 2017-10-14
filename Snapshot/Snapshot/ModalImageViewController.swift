@@ -41,10 +41,10 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate, UIGestur
     // Runs when the view controller first loads.
     internal override func viewDidLoad() {
         super.viewDidLoad()
-        setupImage()
         setupActions()
         setupScrollView()
-        setScreenForImageOrientation()
+        setupImage()
+        setImageSizeForOrientation()
     }
     
     // Runs when the view controller is about to appear.
@@ -185,15 +185,13 @@ class ModalImageViewController: UIViewController, UIScrollViewDelegate, UIGestur
     }
     
     // Sets the proper size and position of an image if it is horizontal.
-    private func setScreenForImageOrientation() {
+    private func setImageSizeForOrientation() {
         let imageWidth = photoView.image!.size.width
         let imageHeight = photoView.image!.size.height
-        if imageWidth > imageHeight {
-            let finalWidth = scrollView.frame.width
-            let finalHeight = scrollView.frame.width * (imageHeight / imageWidth)
-            let y = photoView.frame.minY + (photoView.frame.height - finalHeight) / 2
-            photoView.frame = CGRect(x: 0.0, y: y, width: finalWidth * 3.0, height: finalHeight)
-        }
+        let finalWidth = scrollView.frame.width
+        let finalHeight = scrollView.frame.width * (imageHeight / imageWidth)
+        let y = photoView.frame.minY + (photoView.frame.height - finalHeight) / 2
+        photoView.frame = CGRect(x: 0.0, y: y, width: finalWidth, height: finalHeight)
         scrollView.contentInset = UIEdgeInsetsMake(0.0, scrollView.frame.width, 0.0, scrollView.frame.width)
     }
     
