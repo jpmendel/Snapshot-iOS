@@ -51,7 +51,7 @@ class SaveDateViewController: UIViewController {
     @objc private func confirmButtonPress(_ sender: UIButton) {
         if let image = DataManager.capturedImage {
             let savedImage = SavedImage(image: image, expireDate: datePicker.date)
-            DataManager.saveImageRecord(savedImage)
+            DataManager.createImageRecord(savedImage)
         }
         back(to: PhotoLibraryViewController.self)
     }

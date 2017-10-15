@@ -97,7 +97,7 @@ class DataManager: NSObject {
     }
     
     // Inserts a saved image into the database.
-    internal static func saveImageRecord(_ savedImage: SavedImage) {
+    internal static func createImageRecord(_ savedImage: SavedImage) {
         let insertImageSQLCode = "INSERT INTO saved_images (image_file, expire_date) VALUES (?, ?);"
         var insertImageStatement: OpaquePointer? = nil
         if sqlite3_prepare_v2(database, insertImageSQLCode, -1, &insertImageStatement, nil) == SQLITE_OK {
@@ -217,13 +217,13 @@ class DataManager: NSObject {
     internal static func cleanFilesOnDisk() {
         do {
             let files = try FileManager.default.contentsOfDirectory(atPath: baseURL.path + "/images/")
-            for i in stride(from: files.count - 1, through: 0, by: -1) {
-                if getImageRecord(files[i]) == nil {
+            for file in files {
+                if getImageRecord(file) == nil {
                     do {
-                        let fileURL = DataManager.baseURL.appendingPathComponent("/images/" + files[i])
+                        let fileURL = DataManager.baseURL.appendingPathComponent("/images/" + file)
                         try FileManager.default.removeItem(at: fileURL)
                     } catch {
-                        print("CLEANER: Failed to delete file: \(files[i])")
+                        print("CLEANER: Failed to delete file: \(file)")
                     }
                 }
             }

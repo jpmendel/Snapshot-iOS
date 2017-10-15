@@ -71,7 +71,7 @@ class SaveTimeViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         if let image = DataManager.capturedImage {
             let expireDate = Calendar.current.date(byAdding: unitSelected, value: timeSelected, to: Date())!
             let savedImage = SavedImage(image: image, expireDate: expireDate)
-            DataManager.saveImageRecord(savedImage)
+            DataManager.createImageRecord(savedImage)
         }
         back(to: PhotoLibraryViewController.self)
     }

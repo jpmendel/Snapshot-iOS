@@ -52,8 +52,8 @@ class SavedImage: NSObject {
     
     // Gets a string for a more readable expire time.
     internal func getReadableExpireText() -> String {
-        var expireTime = 0
-        var units = ""
+        var expireTime: Int
+        var units: String
         if expireDate.years(from: Date()) > 0 {
             expireTime = expireDate.years(from: Date())
             units = "years"

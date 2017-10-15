@@ -155,8 +155,12 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
             alert.addAction(yesAction)
             alert.addAction(noAction)
             present(alert, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "Snapshot", message: "Hold down on images to select them first.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
         }
-        
     }
     
     // Show save options when the user has finished taking a photo.
@@ -213,11 +217,11 @@ class PhotoLibraryViewController: UIViewController, UINavigationControllerDelega
     private func formatPhoto(_ photo: UIImageView) {
         photo.layer.cornerRadius = 10
         photo.clipsToBounds = true
-        cropImage(photo)
+        cropImageToSquare(photo)
     }
     
     // Crops an image from an image view to square dimensions.
-    private func cropImage(_ imageView: UIImageView) {
+    private func cropImageToSquare(_ imageView: UIImageView) {
         if let image = imageView.image {
             let imageWidth = image.size.width
             let imageHeight = image.size.height
