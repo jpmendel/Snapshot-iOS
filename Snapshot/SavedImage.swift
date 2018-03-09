@@ -56,19 +56,19 @@ class SavedImage: NSObject {
         var units: String
         if expireDate.years(from: Date()) > 0 {
             expireTime = expireDate.years(from: Date())
-            units = "years"
+            units = expireTime == 1 ? "year" : "years"
         } else if expireDate.months(from: Date()) > 0 {
             expireTime = expireDate.months(from: Date())
-            units = "months"
+            units = expireTime == 1 ? "month" : "months"
         } else if expireDate.days(from: Date()) > 0 {
             expireTime = expireDate.days(from: Date())
-            units = "days"
+            units = expireTime == 1 ? "day" : "days"
         } else if expireDate.hours(from: Date()) > 0 {
             expireTime = expireDate.hours(from: Date())
-            units = "hours"
+            units = expireTime == 1 ? "hour" : "hours"
         } else {
             expireTime = expireDate.minutes(from: Date())
-            units = "minutes"
+            units = expireTime == 1 ? "minute" : "minutes"
         }
         return "- Expires in \(expireTime) \(units) -"
     }
