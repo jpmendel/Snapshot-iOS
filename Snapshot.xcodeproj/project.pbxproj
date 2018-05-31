@@ -7,40 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1642BF2620BDAE1500154B55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1642BF2320BDAE1500154B55 /* AppDelegate.swift */; };
-		1642BF2720BDAE1500154B55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1642BF2420BDAE1500154B55 /* Assets.xcassets */; };
-		1642BF2820BDAE1500154B55 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1642BF2520BDAE1500154B55 /* Info.plist */; };
-		1642BF2B20BDAE2800154B55 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1642BF2A20BDAE2800154B55 /* DataManager.swift */; };
-		1642BF2E20BDAE4A00154B55 /* SavedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1642BF2D20BDAE4A00154B55 /* SavedImage.swift */; };
-		1642BF3520BDAE6600154B55 /* SaveTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1642BF3020BDAE6600154B55 /* SaveTimeViewController.swift */; };
-		1642BF3620BDAE6600154B55 /* SaveOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1642BF3120BDAE6600154B55 /* SaveOptionsViewController.swift */; };
-		1642BF3720BDAE6600154B55 /* SaveDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1642BF3220BDAE6600154B55 /* SaveDateViewController.swift */; };
-		1642BF3820BDAE6600154B55 /* ModalImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1642BF3320BDAE6600154B55 /* ModalImageViewController.swift */; };
-		1642BF3920BDAE6600154B55 /* PhotoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1642BF3420BDAE6600154B55 /* PhotoLibraryViewController.swift */; };
-		1642BF3E20BDAEA200154B55 /* UIViewController+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1642BF3B20BDAEA100154B55 /* UIViewController+Util.swift */; };
-		1642BF3F20BDAEA200154B55 /* Array+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1642BF3C20BDAEA100154B55 /* Array+Util.swift */; };
-		1642BF4020BDAEA200154B55 /* Date+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1642BF3D20BDAEA200154B55 /* Date+Util.swift */; };
 		1642BF4620BDAEB600154B55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1642BF4220BDAEB600154B55 /* LaunchScreen.storyboard */; };
 		1642BF4720BDAEB600154B55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1642BF4420BDAEB600154B55 /* Main.storyboard */; };
+		16D62A1D20BF836700941D75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D62A1A20BF836700941D75 /* AppDelegate.swift */; };
+		16D62A1E20BF836700941D75 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 16D62A1B20BF836700941D75 /* Info.plist */; };
+		16D62A1F20BF836700941D75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16D62A1C20BF836700941D75 /* Assets.xcassets */; };
+		16D62A2120BF837600941D75 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D62A2020BF837600941D75 /* DataManager.swift */; };
+		16D62A2720BF838600941D75 /* ModalImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D62A2220BF838600941D75 /* ModalImageViewController.swift */; };
+		16D62A2820BF838600941D75 /* PhotoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D62A2320BF838600941D75 /* PhotoLibraryViewController.swift */; };
+		16D62A2920BF838600941D75 /* SaveDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D62A2420BF838600941D75 /* SaveDateViewController.swift */; };
+		16D62A2A20BF838600941D75 /* SaveTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D62A2520BF838600941D75 /* SaveTimeViewController.swift */; };
+		16D62A2B20BF838600941D75 /* SaveOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D62A2620BF838600941D75 /* SaveOptionsViewController.swift */; };
+		16D62A2D20BF839000941D75 /* SavedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D62A2C20BF839000941D75 /* SavedImage.swift */; };
+		16D62A3120BF839C00941D75 /* Array+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D62A2E20BF839C00941D75 /* Array+Util.swift */; };
+		16D62A3220BF839C00941D75 /* Date+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D62A2F20BF839C00941D75 /* Date+Util.swift */; };
+		16D62A3320BF839C00941D75 /* UIViewController+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D62A3020BF839C00941D75 /* UIViewController+Util.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1642BF2320BDAE1500154B55 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Snapshot/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
-		1642BF2420BDAE1500154B55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Snapshot/Assets.xcassets; sourceTree = SOURCE_ROOT; };
-		1642BF2520BDAE1500154B55 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Snapshot/Info.plist; sourceTree = SOURCE_ROOT; };
-		1642BF2A20BDAE2800154B55 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = Snapshot/DataManager.swift; sourceTree = SOURCE_ROOT; };
-		1642BF2D20BDAE4A00154B55 /* SavedImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SavedImage.swift; path = Snapshot/SavedImage.swift; sourceTree = SOURCE_ROOT; };
-		1642BF3020BDAE6600154B55 /* SaveTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SaveTimeViewController.swift; path = Snapshot/SaveTimeViewController.swift; sourceTree = SOURCE_ROOT; };
-		1642BF3120BDAE6600154B55 /* SaveOptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SaveOptionsViewController.swift; path = Snapshot/SaveOptionsViewController.swift; sourceTree = SOURCE_ROOT; };
-		1642BF3220BDAE6600154B55 /* SaveDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SaveDateViewController.swift; path = Snapshot/SaveDateViewController.swift; sourceTree = SOURCE_ROOT; };
-		1642BF3320BDAE6600154B55 /* ModalImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModalImageViewController.swift; path = Snapshot/ModalImageViewController.swift; sourceTree = SOURCE_ROOT; };
-		1642BF3420BDAE6600154B55 /* PhotoLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoLibraryViewController.swift; path = Snapshot/PhotoLibraryViewController.swift; sourceTree = SOURCE_ROOT; };
-		1642BF3B20BDAEA100154B55 /* UIViewController+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+Util.swift"; path = "Snapshot/UIViewController+Util.swift"; sourceTree = SOURCE_ROOT; };
-		1642BF3C20BDAEA100154B55 /* Array+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Array+Util.swift"; path = "Snapshot/Array+Util.swift"; sourceTree = SOURCE_ROOT; };
-		1642BF3D20BDAEA200154B55 /* Date+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Date+Util.swift"; path = "Snapshot/Date+Util.swift"; sourceTree = SOURCE_ROOT; };
 		1642BF4320BDAEB600154B55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Snapshot/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		1642BF4520BDAEB600154B55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Snapshot/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		16D265B81F0C18E200D37E8E /* Snapshot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snapshot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		16D62A1A20BF836700941D75 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		16D62A1B20BF836700941D75 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		16D62A1C20BF836700941D75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		16D62A2020BF837600941D75 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		16D62A2220BF838600941D75 /* ModalImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalImageViewController.swift; sourceTree = "<group>"; };
+		16D62A2320BF838600941D75 /* PhotoLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryViewController.swift; sourceTree = "<group>"; };
+		16D62A2420BF838600941D75 /* SaveDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveDateViewController.swift; sourceTree = "<group>"; };
+		16D62A2520BF838600941D75 /* SaveTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveTimeViewController.swift; sourceTree = "<group>"; };
+		16D62A2620BF838600941D75 /* SaveOptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveOptionsViewController.swift; sourceTree = "<group>"; };
+		16D62A2C20BF839000941D75 /* SavedImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedImage.swift; sourceTree = "<group>"; };
+		16D62A2E20BF839C00941D75 /* Array+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Util.swift"; sourceTree = "<group>"; };
+		16D62A2F20BF839C00941D75 /* Date+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Util.swift"; sourceTree = "<group>"; };
+		16D62A3020BF839C00941D75 /* UIViewController+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Util.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +57,9 @@
 		1642BF2220BDADFD00154B55 /* AppCore */ = {
 			isa = PBXGroup;
 			children = (
-				1642BF2320BDAE1500154B55 /* AppDelegate.swift */,
-				1642BF2520BDAE1500154B55 /* Info.plist */,
-				1642BF2420BDAE1500154B55 /* Assets.xcassets */,
+				16D62A1A20BF836700941D75 /* AppDelegate.swift */,
+				16D62A1B20BF836700941D75 /* Info.plist */,
+				16D62A1C20BF836700941D75 /* Assets.xcassets */,
 			);
 			path = AppCore;
 			sourceTree = "<group>";
@@ -67,7 +67,7 @@
 		1642BF2920BDAE1D00154B55 /* DataManagement */ = {
 			isa = PBXGroup;
 			children = (
-				1642BF2A20BDAE2800154B55 /* DataManager.swift */,
+				16D62A2020BF837600941D75 /* DataManager.swift */,
 			);
 			path = DataManagement;
 			sourceTree = "<group>";
@@ -75,7 +75,7 @@
 		1642BF2C20BDAE3300154B55 /* DataTypes */ = {
 			isa = PBXGroup;
 			children = (
-				1642BF2D20BDAE4A00154B55 /* SavedImage.swift */,
+				16D62A2C20BF839000941D75 /* SavedImage.swift */,
 			);
 			path = DataTypes;
 			sourceTree = "<group>";
@@ -83,11 +83,11 @@
 		1642BF2F20BDAE4E00154B55 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				1642BF3320BDAE6600154B55 /* ModalImageViewController.swift */,
-				1642BF3420BDAE6600154B55 /* PhotoLibraryViewController.swift */,
-				1642BF3220BDAE6600154B55 /* SaveDateViewController.swift */,
-				1642BF3120BDAE6600154B55 /* SaveOptionsViewController.swift */,
-				1642BF3020BDAE6600154B55 /* SaveTimeViewController.swift */,
+				16D62A2320BF838600941D75 /* PhotoLibraryViewController.swift */,
+				16D62A2620BF838600941D75 /* SaveOptionsViewController.swift */,
+				16D62A2520BF838600941D75 /* SaveTimeViewController.swift */,
+				16D62A2420BF838600941D75 /* SaveDateViewController.swift */,
+				16D62A2220BF838600941D75 /* ModalImageViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -95,9 +95,9 @@
 		1642BF3A20BDAE7200154B55 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				1642BF3C20BDAEA100154B55 /* Array+Util.swift */,
-				1642BF3D20BDAEA200154B55 /* Date+Util.swift */,
-				1642BF3B20BDAEA100154B55 /* UIViewController+Util.swift */,
+				16D62A3020BF839C00941D75 /* UIViewController+Util.swift */,
+				16D62A2E20BF839C00941D75 /* Array+Util.swift */,
+				16D62A2F20BF839C00941D75 /* Date+Util.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -202,8 +202,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1642BF4620BDAEB600154B55 /* LaunchScreen.storyboard in Resources */,
-				1642BF2820BDAE1500154B55 /* Info.plist in Resources */,
-				1642BF2720BDAE1500154B55 /* Assets.xcassets in Resources */,
+				16D62A1E20BF836700941D75 /* Info.plist in Resources */,
+				16D62A1F20BF836700941D75 /* Assets.xcassets in Resources */,
 				1642BF4720BDAEB600154B55 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,17 +215,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1642BF3520BDAE6600154B55 /* SaveTimeViewController.swift in Sources */,
-				1642BF3620BDAE6600154B55 /* SaveOptionsViewController.swift in Sources */,
-				1642BF3920BDAE6600154B55 /* PhotoLibraryViewController.swift in Sources */,
-				1642BF2E20BDAE4A00154B55 /* SavedImage.swift in Sources */,
-				1642BF4020BDAEA200154B55 /* Date+Util.swift in Sources */,
-				1642BF3820BDAE6600154B55 /* ModalImageViewController.swift in Sources */,
-				1642BF3F20BDAEA200154B55 /* Array+Util.swift in Sources */,
-				1642BF2620BDAE1500154B55 /* AppDelegate.swift in Sources */,
-				1642BF3E20BDAEA200154B55 /* UIViewController+Util.swift in Sources */,
-				1642BF2B20BDAE2800154B55 /* DataManager.swift in Sources */,
-				1642BF3720BDAE6600154B55 /* SaveDateViewController.swift in Sources */,
+				16D62A3320BF839C00941D75 /* UIViewController+Util.swift in Sources */,
+				16D62A2720BF838600941D75 /* ModalImageViewController.swift in Sources */,
+				16D62A1D20BF836700941D75 /* AppDelegate.swift in Sources */,
+				16D62A2120BF837600941D75 /* DataManager.swift in Sources */,
+				16D62A2920BF838600941D75 /* SaveDateViewController.swift in Sources */,
+				16D62A2B20BF838600941D75 /* SaveOptionsViewController.swift in Sources */,
+				16D62A2A20BF838600941D75 /* SaveTimeViewController.swift in Sources */,
+				16D62A2D20BF839000941D75 /* SavedImage.swift in Sources */,
+				16D62A3220BF839C00941D75 /* Date+Util.swift in Sources */,
+				16D62A2820BF838600941D75 /* PhotoLibraryViewController.swift in Sources */,
+				16D62A3120BF839C00941D75 /* Array+Util.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
